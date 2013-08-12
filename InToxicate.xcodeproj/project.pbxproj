@@ -1,0 +1,320 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		26D899FE17B98E8900F5FE36 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D899FD17B98E8900F5FE36 /* UIKit.framework */; };
+		26D89A0017B98E8900F5FE36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D899FF17B98E8900F5FE36 /* Foundation.framework */; };
+		26D89A0217B98E8900F5FE36 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D89A0117B98E8900F5FE36 /* CoreGraphics.framework */; };
+		26D89A0817B98E8900F5FE36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26D89A0617B98E8900F5FE36 /* InfoPlist.strings */; };
+		26D89A0A17B98E8900F5FE36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A0917B98E8900F5FE36 /* main.m */; };
+		26D89A0E17B98E8900F5FE36 /* ToxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A0D17B98E8900F5FE36 /* ToxAppDelegate.m */; };
+		26D89A1017B98E8900F5FE36 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D89A0F17B98E8900F5FE36 /* Default.png */; };
+		26D89A1217B98E8900F5FE36 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D89A1117B98E8900F5FE36 /* Default@2x.png */; };
+		26D89A1417B98E8900F5FE36 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D89A1317B98E8900F5FE36 /* Default-568h@2x.png */; };
+		26D89A1717B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26D89A1517B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard */; };
+		26D89A1A17B98E8900F5FE36 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26D89A1817B98E8900F5FE36 /* MainStoryboard_iPad.storyboard */; };
+		26D89A1D17B98E8900F5FE36 /* ToxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A1C17B98E8900F5FE36 /* ToxViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		26D899FA17B98E8900F5FE36 /* InToxicate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InToxicate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		26D899FD17B98E8900F5FE36 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		26D899FF17B98E8900F5FE36 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		26D89A0117B98E8900F5FE36 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		26D89A0517B98E8900F5FE36 /* InToxicate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InToxicate-Info.plist"; sourceTree = "<group>"; };
+		26D89A0717B98E8900F5FE36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		26D89A0917B98E8900F5FE36 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		26D89A0B17B98E8900F5FE36 /* InToxicate-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InToxicate-Prefix.pch"; sourceTree = "<group>"; };
+		26D89A0C17B98E8900F5FE36 /* ToxAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToxAppDelegate.h; sourceTree = "<group>"; };
+		26D89A0D17B98E8900F5FE36 /* ToxAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToxAppDelegate.m; sourceTree = "<group>"; };
+		26D89A0F17B98E8900F5FE36 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		26D89A1117B98E8900F5FE36 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		26D89A1317B98E8900F5FE36 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		26D89A1617B98E8900F5FE36 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		26D89A1917B98E8900F5FE36 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		26D89A1B17B98E8900F5FE36 /* ToxViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToxViewController.h; sourceTree = "<group>"; };
+		26D89A1C17B98E8900F5FE36 /* ToxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToxViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		26D899F717B98E8900F5FE36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26D899FE17B98E8900F5FE36 /* UIKit.framework in Frameworks */,
+				26D89A0017B98E8900F5FE36 /* Foundation.framework in Frameworks */,
+				26D89A0217B98E8900F5FE36 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		26D899F117B98E8900F5FE36 = {
+			isa = PBXGroup;
+			children = (
+				26D89A0317B98E8900F5FE36 /* InToxicate */,
+				26D899FC17B98E8900F5FE36 /* Frameworks */,
+				26D899FB17B98E8900F5FE36 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		26D899FB17B98E8900F5FE36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				26D899FA17B98E8900F5FE36 /* InToxicate.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		26D899FC17B98E8900F5FE36 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				26D899FD17B98E8900F5FE36 /* UIKit.framework */,
+				26D899FF17B98E8900F5FE36 /* Foundation.framework */,
+				26D89A0117B98E8900F5FE36 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		26D89A0317B98E8900F5FE36 /* InToxicate */ = {
+			isa = PBXGroup;
+			children = (
+				26D89A0C17B98E8900F5FE36 /* ToxAppDelegate.h */,
+				26D89A0D17B98E8900F5FE36 /* ToxAppDelegate.m */,
+				26D89A1517B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard */,
+				26D89A1817B98E8900F5FE36 /* MainStoryboard_iPad.storyboard */,
+				26D89A1B17B98E8900F5FE36 /* ToxViewController.h */,
+				26D89A1C17B98E8900F5FE36 /* ToxViewController.m */,
+				26D89A0417B98E8900F5FE36 /* Supporting Files */,
+			);
+			path = InToxicate;
+			sourceTree = "<group>";
+		};
+		26D89A0417B98E8900F5FE36 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				26D89A0517B98E8900F5FE36 /* InToxicate-Info.plist */,
+				26D89A0617B98E8900F5FE36 /* InfoPlist.strings */,
+				26D89A0917B98E8900F5FE36 /* main.m */,
+				26D89A0B17B98E8900F5FE36 /* InToxicate-Prefix.pch */,
+				26D89A0F17B98E8900F5FE36 /* Default.png */,
+				26D89A1117B98E8900F5FE36 /* Default@2x.png */,
+				26D89A1317B98E8900F5FE36 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		26D899F917B98E8900F5FE36 /* InToxicate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26D89A2017B98E8900F5FE36 /* Build configuration list for PBXNativeTarget "InToxicate" */;
+			buildPhases = (
+				26D899F617B98E8900F5FE36 /* Sources */,
+				26D899F717B98E8900F5FE36 /* Frameworks */,
+				26D899F817B98E8900F5FE36 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InToxicate;
+			productName = InToxicate;
+			productReference = 26D899FA17B98E8900F5FE36 /* InToxicate.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		26D899F217B98E8900F5FE36 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Tox;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = Neuronics;
+			};
+			buildConfigurationList = 26D899F517B98E8900F5FE36 /* Build configuration list for PBXProject "InToxicate" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 26D899F117B98E8900F5FE36;
+			productRefGroup = 26D899FB17B98E8900F5FE36 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				26D899F917B98E8900F5FE36 /* InToxicate */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		26D899F817B98E8900F5FE36 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26D89A0817B98E8900F5FE36 /* InfoPlist.strings in Resources */,
+				26D89A1017B98E8900F5FE36 /* Default.png in Resources */,
+				26D89A1217B98E8900F5FE36 /* Default@2x.png in Resources */,
+				26D89A1417B98E8900F5FE36 /* Default-568h@2x.png in Resources */,
+				26D89A1717B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard in Resources */,
+				26D89A1A17B98E8900F5FE36 /* MainStoryboard_iPad.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		26D899F617B98E8900F5FE36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26D89A0A17B98E8900F5FE36 /* main.m in Sources */,
+				26D89A0E17B98E8900F5FE36 /* ToxAppDelegate.m in Sources */,
+				26D89A1D17B98E8900F5FE36 /* ToxViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		26D89A0617B98E8900F5FE36 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26D89A0717B98E8900F5FE36 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		26D89A1517B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26D89A1617B98E8900F5FE36 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		26D89A1817B98E8900F5FE36 /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26D89A1917B98E8900F5FE36 /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		26D89A1E17B98E8900F5FE36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		26D89A1F17B98E8900F5FE36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		26D89A2117B98E8900F5FE36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "InToxicate/InToxicate-Prefix.pch";
+				INFOPLIST_FILE = "InToxicate/InToxicate-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		26D89A2217B98E8900F5FE36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "InToxicate/InToxicate-Prefix.pch";
+				INFOPLIST_FILE = "InToxicate/InToxicate-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		26D899F517B98E8900F5FE36 /* Build configuration list for PBXProject "InToxicate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26D89A1E17B98E8900F5FE36 /* Debug */,
+				26D89A1F17B98E8900F5FE36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26D89A2017B98E8900F5FE36 /* Build configuration list for PBXNativeTarget "InToxicate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26D89A2117B98E8900F5FE36 /* Debug */,
+				26D89A2217B98E8900F5FE36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 26D899F217B98E8900F5FE36 /* Project object */;
+}
