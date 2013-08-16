@@ -10,6 +10,8 @@
 
 @interface NSString (HexToData)
 
++ (NSString*)stringAsHexFromData:(NSData *) data WithSpaces:(BOOL)spaces;
+
 - (NSData *)createDataWithHexString;
 - (NSData *)hexToData;
 @end

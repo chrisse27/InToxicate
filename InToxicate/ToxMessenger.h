@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface ToxMessenger : NSObject
+@property (nonatomic,readonly) NSString *publicKey;
+@property (nonatomic,readonly) NSString *dataPath;
+
 - (void)start;
 @end

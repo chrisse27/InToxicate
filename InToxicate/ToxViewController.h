@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ToxViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextField *txtPublicKey;
 
 @end

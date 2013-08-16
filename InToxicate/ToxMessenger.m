@@ -14,7 +14,11 @@
 #import "Messenger.h"
 
 @interface ToxMessenger()
+
+- (void)load;
+
 - (void)onFriendRequest:(uint8_t*) cUserId Message:(uint8_t*) cMessage Size:(uint16_t) cMessageSize;
+- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendIndex:(int)friend NewName: (NSString *) name;
 @end
 
 @implementation ToxMessenger
@@ -27,9 +31,29 @@
 
 ToxMessenger *master;
 
+- (NSString *) publicKey
+{
+    NSData *publicKeyData = [NSData dataWithBytes:((const void *)self_public_key) length:crypto_box_PUBLICKEYBYTES];
+    return [NSString stringAsHexFromData:publicKeyData WithSpaces:NO];;
+}
+
+- (NSString *)dataPath
+{
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentPath = [searchPaths objectAtIndex:0];
+    return [documentPath stringByAppendingPathComponent:@"./data"];
+}
+
 void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageSize)
 {
     [master onFriendRequest:cUserId Message:cMessage Size:cMessageSize];
+}
+
+void onNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t nameLength)
+{
+    NSData *nameData = [NSData dataWithBytes:(const void *)name length:nameLength];
+    NSString *friendName = [NSString stringAsHexFromData:nameData WithSpaces:NO];
+    [master onFriendNameChangeWithMessenger:m FriendIndex:friendIndex NewName:friendName];
 }
 
 -(id) init
@@ -37,6 +61,7 @@ void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageSize)
     self = [super init];
     if (self)
     {
+        master = self;
         connTryCount = 0;
         hadConnectedToDHT = NO;
         [self start];
@@ -44,8 +69,32 @@ void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageSize)
     return self;
 }
 
+- (void)load
+{
+    NSData *data = [NSData dataWithContentsOfFile:self.dataPath];
+    
+    if (!data) {
+        NSLog(@"Data file not found.");
+        
+        int messengerSize = Messenger_size(messenger);
+        NSMutableData *newData = [NSMutableData dataWithLength:messengerSize];
+        Messenger_save(messenger, (uint8_t*)[newData bytes]);
+        [newData writeToFile:self.dataPath atomically:NO];
+        
+        return;
+    } else {
+        Messenger_load(messenger, (uint8_t*)[data bytes], [data length]);
+    }
+}
+
 - (void)onFriendRequest:(uint8_t*) cUserId Message:(uint8_t*) cMessage Size:(uint16_t) cMessageSize
 {
+    NSLog(@"Received friend request");
+}
+
+- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendIndex:(int)friend NewName: (NSString *) name
+{
+    
 }
 
 - (void)initTox {
@@ -58,7 +107,7 @@ void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageSize)
     
     m_callback_friendrequest(messenger, onFriendRequest);
     //    m_callback_friendmessage(m, print_message);
-    //    m_callback_namechange(m, print_nickchange);
+    m_callback_namechange(messenger, onNameChange);
     //    m_callback_statusmessage(m, print_statuschange);
 }
 
@@ -111,6 +160,8 @@ void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageSize)
 - (void)start
 {
     [self initTox];
+    
+    [self load];
     
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(doTox) userInfo:nil repeats:YES];
     

@@ -24,6 +24,7 @@
     [super viewDidLoad];
 
     self.messenger = [ToxAppDelegate messenger];
+    self.txtPublicKey.text = self.messenger.publicKey;
 }
 
 - (void)didReceiveMemoryWarning
