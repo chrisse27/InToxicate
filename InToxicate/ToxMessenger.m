@@ -79,6 +79,7 @@ void onNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t nameLen
         int messengerSize = Messenger_size(messenger);
         NSMutableData *newData = [NSMutableData dataWithLength:messengerSize];
         Messenger_save(messenger, (uint8_t*)[newData bytes]);
+        // @TODO: Encrypt file!!!!!
         [newData writeToFile:self.dataPath atomically:NO];
         
         return;
