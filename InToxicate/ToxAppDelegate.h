@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ToxMessenger.h"
 
 @interface ToxAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
++ (ToxMessenger *) messenger;
 @end

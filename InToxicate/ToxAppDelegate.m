@@ -8,6 +8,7 @@
 
 #import "ToxAppDelegate.h"
 
+
 @implementation ToxAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -43,4 +44,14 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
++ (ToxMessenger *) messenger
+{
+    static ToxMessenger *_messenger;
+    
+    if (_messenger == nil) {
+        _messenger = [[ToxMessenger alloc] init];
+    }
+    
+    return _messenger;
+}
 @end
