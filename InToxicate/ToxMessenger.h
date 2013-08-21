@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ToxFriend.h"
+
 @interface ToxMessenger : NSObject
 @property (nonatomic,readonly) NSString *publicKey;
 @property (nonatomic,readonly) NSString *dataPath;
 
 - (void)start;
+
+- (void)acceptFriendRequest:(ToxFriend *)toxFriend;
+- (void)sendMessage:(NSString *) message ToFriend:(ToxFriend *)toxFriend;
 @end

@@ -17,8 +17,9 @@
 
 - (void)load;
 
-- (void)onFriendRequest:(uint8_t*) cUserId Message:(uint8_t*) cMessage Size:(uint16_t) cMessageSize;
-- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendIndex:(int)friend NewName: (NSString *) name;
+- (void)onFriendRequest:(uint8_t*) cUserId Message:(uint8_t*) cMessage Size:(uint16_t) cMessageSize UserData: (void *) cUserData;
+- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(uint8_t *) cMessage Size: (uint16_t) cMessageSize UserData: (void *) cUserData;
+- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber NewName: (NSString *) name UserData: (void *) cUserData;
 @end
 
 @implementation ToxMessenger
@@ -44,16 +45,16 @@ ToxMessenger *master;
     return [documentPath stringByAppendingPathComponent:@"./data"];
 }
 
-void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageSize)
+void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageSize, void *userData)
 {
-    [master onFriendRequest:cUserId Message:cMessage Size:cMessageSize];
+    [master onFriendRequest:cUserId Message:cMessage Size:cMessageSize UserData:userData];
 }
 
-void onNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t nameLength)
+void onFriendNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t nameLength, void *userData)
 {
     NSData *nameData = [NSData dataWithBytes:(const void *)name length:nameLength];
     NSString *friendName = [NSString stringAsHexFromData:nameData WithSpaces:NO];
-    [master onFriendNameChangeWithMessenger:m FriendIndex:friendIndex NewName:friendName];
+    [master onFriendNameChangeWithMessenger:m FriendNumber:friendIndex NewName:friendName UserData:userData];
 }
 
 -(id) init
@@ -88,12 +89,17 @@ void onNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t nameLen
     }
 }
 
-- (void)onFriendRequest:(uint8_t*) cUserId Message:(uint8_t*) cMessage Size:(uint16_t) cMessageSize
+- (void)onFriendRequest:(uint8_t*) cUserId Message:(uint8_t*) cMessage Size:(uint16_t) cMessageSize UserData: (void *) cUserData
 {
     NSLog(@"Received friend request");
 }
 
-- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendIndex:(int)friend NewName: (NSString *) name
+- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(uint8_t *) cMessage Size: (uint16_t) cMessageSize UserData: (void *) cUserData
+{
+    
+}
+
+- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friend NewName: (NSString *) name UserData: (void *) cUserData
 {
     
 }
@@ -106,10 +112,12 @@ void onNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t nameLen
         return;
     }
     
-    m_callback_friendrequest(messenger, onFriendRequest);
-    //    m_callback_friendmessage(m, print_message);
-    m_callback_namechange(messenger, onNameChange);
-    //    m_callback_statusmessage(m, print_statuschange);
+    void *userData = NULL;
+    
+    m_callback_friendrequest(messenger, onFriendRequest, userData);
+    //    m_callback_friendmessage(m, print_message, userData);
+    m_callback_namechange(messenger, onFriendNameChange, userData);
+    //    m_callback_statusmessage(m, print_statuschange, userData);
 }
 
 
@@ -167,6 +175,17 @@ void onNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t nameLen
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(doTox) userInfo:nil repeats:YES];
     
     //cleanupMessenger(messenger);
+}
+
+- (void)acceptFriendRequest:(ToxFriend *)toxFriend
+{
+    // Should we create the friend only here or already before????
+    int friendNumber = m_addfriend_norequest(messenger, toxFriend.clientId);
+}
+
+- (void)sendMessage:(NSString *) message ToFriend:(ToxFriend *)toxFriend
+{
+    m_sendmessage(messenger, toxFriend.number, (uint8_t *)[message UTF8String], [message lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
 }
 
 @end
