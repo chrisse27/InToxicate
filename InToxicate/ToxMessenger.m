@@ -17,8 +17,8 @@
 
 - (void)load;
 
-- (void)onFriendRequest:(uint8_t*) cUserId Message:(uint8_t*) cMessage Size:(uint16_t) cMessageSize UserData: (void *) cUserData;
-- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(uint8_t *) cMessage Size: (uint16_t) cMessageSize UserData: (void *) cUserData;
+- (void)onFriendRequest:(uint8_t*) cUserId Message:(NSString*) message UserData: (void *) cUserData;
+- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *) cUserData;
 - (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber NewName: (NSString *) name UserData: (void *) cUserData;
 @end
 
@@ -28,13 +28,53 @@
     int connTryCount;
     BOOL hadConnectedToDHT;
     NSTimer *timer;
+    
+    NSMutableArray *_friends;
+    NSMutableArray *_friendRequests;
 }
+
+#pragma mark static stuff
 
 ToxMessenger *master;
 
-- (NSString *) publicKey
+void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageLength, void *userData)
 {
-    NSData *publicKeyData = [NSData dataWithBytes:((const void *)self_public_key) length:crypto_box_PUBLICKEYBYTES];
+    NSString *message = [NSString stringWithUTF8String:(const char *)cMessage];
+    
+    [master onFriendRequest:cUserId Message:message UserData:userData];
+}
+
+void onFriendMessage(Messenger *m, int friendNumber, uint8_t *cMessage, uint16_t cMessageLength, void * userData)
+{
+    NSString *message = [NSString stringWithUTF8String:(const char *)cMessage];
+
+    [master onFriendMessageWithMessenger:m FriendNumber:friendNumber Message:message UserData:userData];
+}
+
+void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t cNameLength, void *userData)
+{
+    NSString *friendName = [NSString stringWithUTF8String:(const char *)cName];
+    [master onFriendNameChangeWithMessenger:m FriendNumber:friendNumber NewName:friendName UserData:userData];
+}
+
+#pragma mark instance stuff
+
+- (NSArray *)friends
+{
+    return _friends;
+}
+
+- (NSArray *)friendRequests
+{
+    return _friendRequests;
+}
+
+- (NSString *)personalId
+{
+    uint8_t address[FRIEND_ADDRESS_SIZE];
+    getaddress(messenger, address);
+    
+    NSData *publicKeyData = [NSData dataWithBytes:((const void *)address) length:FRIEND_ADDRESS_SIZE];
     return [NSString stringAsHexFromData:publicKeyData WithSpaces:NO];;
 }
 
@@ -45,18 +85,6 @@ ToxMessenger *master;
     return [documentPath stringByAppendingPathComponent:@"./data"];
 }
 
-void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageSize, void *userData)
-{
-    [master onFriendRequest:cUserId Message:cMessage Size:cMessageSize UserData:userData];
-}
-
-void onFriendNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t nameLength, void *userData)
-{
-    NSData *nameData = [NSData dataWithBytes:(const void *)name length:nameLength];
-    NSString *friendName = [NSString stringAsHexFromData:nameData WithSpaces:NO];
-    [master onFriendNameChangeWithMessenger:m FriendNumber:friendIndex NewName:friendName UserData:userData];
-}
-
 -(id) init
 {
     self = [super init];
@@ -65,6 +93,10 @@ void onFriendNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t n
         master = self;
         connTryCount = 0;
         hadConnectedToDHT = NO;
+        
+        _friendRequests = [[NSMutableArray alloc] init];
+        _friends = [[NSMutableArray alloc] init];
+        
         [self start];
     }
     return self;
@@ -89,19 +121,22 @@ void onFriendNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t n
     }
 }
 
-- (void)onFriendRequest:(uint8_t*) cUserId Message:(uint8_t*) cMessage Size:(uint16_t) cMessageSize UserData: (void *) cUserData
+- (void)onFriendRequest:(uint8_t*) cUserId Message:(NSString*) message UserData: (void *) cUserData
 {
-    NSLog(@"Received friend request");
+    ToxFriendRequest *friendRequest = [[ToxFriendRequest alloc] initWithClientId:cUserId Message:message];
+    NSLog(@"Received friend request with message %@", message);
+    
+    [_friendRequests addObject:friendRequest];
 }
 
-- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(uint8_t *) cMessage Size: (uint16_t) cMessageSize UserData: (void *) cUserData
+- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *) cUserData
 {
-    
+    NSLog(@"Received message %@", message);
 }
 
 - (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friend NewName: (NSString *) name UserData: (void *) cUserData
 {
-    
+    NSLog(@"Received name change for friend %d to %@", friend, name);
 }
 
 - (void)initTox {
@@ -115,7 +150,7 @@ void onFriendNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t n
     void *userData = NULL;
     
     m_callback_friendrequest(messenger, onFriendRequest, userData);
-    //    m_callback_friendmessage(m, print_message, userData);
+    m_callback_friendmessage(messenger, onFriendMessage, userData);
     m_callback_namechange(messenger, onFriendNameChange, userData);
     //    m_callback_statusmessage(m, print_statuschange, userData);
 }
@@ -177,10 +212,13 @@ void onFriendNameChange(Messenger *m, int friendIndex, uint8_t *name, uint16_t n
     //cleanupMessenger(messenger);
 }
 
-- (void)acceptFriendRequest:(ToxFriend *)toxFriend
+- (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest
 {
     // Should we create the friend only here or already before????
-    int friendNumber = m_addfriend_norequest(messenger, toxFriend.clientId);
+    int friendNumber = m_addfriend_norequest(messenger, toxFriendRequest.clientId);
+    
+    ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[friendNumber]];
+    [_friends addObject:friend];
 }
 
 - (void)sendMessage:(NSString *) message ToFriend:(ToxFriend *)toxFriend

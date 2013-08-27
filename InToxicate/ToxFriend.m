@@ -10,15 +10,19 @@
 
 @implementation ToxFriend
 
-@synthesize clientId = _clientId;
+@synthesize cFriend = _cFriend;
 @synthesize number = _number;
 
-- (id)initWithClientID:(uint8_t *) clientId FriendNumber:(int) number
+- (NSString *) name
+{
+    return [NSString stringWithUTF8String:(const char *)self.cFriend->name];
+}
+
+- (id)initWithFriend:(Friend *) cFriend
 {
     self = [super init];
     if (self) {
-        _clientId = clientId;
-        _number = number;
+        _cFriend = cFriend;
     }
     
     return self;

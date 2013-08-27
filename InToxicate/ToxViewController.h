@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ToxViewController : UIViewController
+#import <UIKit/UITableView.h>
+
+@interface ToxViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *txtPublicKey;
+@property (weak, nonatomic) IBOutlet UITableView *friendList;
+- (IBAction)accept:(UIButton*)sender;
 
 @end

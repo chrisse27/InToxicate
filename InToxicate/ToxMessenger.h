@@ -9,13 +9,16 @@
 #import <Foundation/Foundation.h>
 
 #import "ToxFriend.h"
+#import "ToxFriendRequest.h"
 
 @interface ToxMessenger : NSObject
-@property (nonatomic,readonly) NSString *publicKey;
+@property (nonatomic,readonly) NSString *personalId;
 @property (nonatomic,readonly) NSString *dataPath;
+@property (nonatomic,readonly) NSArray *friends;
+@property (nonatomic,readonly) NSArray *friendRequests;
 
 - (void)start;
 
-- (void)acceptFriendRequest:(ToxFriend *)toxFriend;
+- (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest;
 - (void)sendMessage:(NSString *) message ToFriend:(ToxFriend *)toxFriend;
 @end

@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ToxFriend : NSObject
-@property (nonatomic, readonly) uint8_t *clientId;
-@property (nonatomic, readonly) int number;
+#import "Messenger.h"
 
-- (id)initWithClientID:(uint8_t *) clientId FriendNumber:(int) number;
+@interface ToxFriend : NSObject
+@property (nonatomic, readonly) Friend *cFriend;
+@property (nonatomic, readonly) int number;
+@property (nonatomic, readonly) NSString *name;
+
+- (id)initWithFriend:(Friend *) cFriend;
 @end
