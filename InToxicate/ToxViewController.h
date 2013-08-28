@@ -10,9 +10,10 @@
 
 #import <UIKit/UITableView.h>
 
-@interface ToxViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+#import "ToxMessengerNotifications.h"
+
+@interface ToxViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ToxMessengerNotifications>
 @property (weak, nonatomic) IBOutlet UITextField *txtPublicKey;
 @property (weak, nonatomic) IBOutlet UITableView *friendList;
-- (IBAction)accept:(UIButton*)sender;
 
 @end

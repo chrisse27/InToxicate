@@ -12,4 +12,7 @@
 
 @interface ToxFriendRequestViewController : UIViewController
 @property (nonatomic, strong) ToxFriendRequest *friendRequest;
+@property (weak, nonatomic) IBOutlet UITextField *friendId;
+
+- (IBAction)acceptRequest:(id)sender;
 @end

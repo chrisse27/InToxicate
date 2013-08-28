@@ -10,12 +10,15 @@
 
 #import "ToxFriend.h"
 #import "ToxFriendRequest.h"
+#import "ToxMessengerNotifications.h"
 
 @interface ToxMessenger : NSObject
 @property (nonatomic,readonly) NSString *personalId;
 @property (nonatomic,readonly) NSString *dataPath;
 @property (nonatomic,readonly) NSArray *friends;
 @property (nonatomic,readonly) NSArray *friendRequests;
+
+@property (nonatomic,strong) id<ToxMessengerNotifications> delegate;
 
 - (void)start;
 

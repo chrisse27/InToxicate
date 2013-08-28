@@ -59,6 +59,8 @@ void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t
 
 #pragma mark instance stuff
 
+@synthesize delegate = _delegate;
+
 - (NSArray *)friends
 {
     return _friends;
@@ -112,7 +114,7 @@ void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t
         int messengerSize = Messenger_size(messenger);
         NSMutableData *newData = [NSMutableData dataWithLength:messengerSize];
         Messenger_save(messenger, (uint8_t*)[newData bytes]);
-        // @TODO: Encrypt file!!!!!
+        //TODO: Encrypt file!!!!!
         [newData writeToFile:self.dataPath atomically:NO];
         
         return;
@@ -127,6 +129,11 @@ void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t
     NSLog(@"Received friend request with message %@", message);
     
     [_friendRequests addObject:friendRequest];
+    
+    //TODO: Cache respondsToSelector in bit field (see stackoverflow)
+    if ([self.delegate respondsToSelector:@selector(messenger:hasReceivedFriendRequest:)]) {
+        [self.delegate messenger:self hasReceivedFriendRequest:friendRequest];
+    }
 }
 
 - (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *) cUserData

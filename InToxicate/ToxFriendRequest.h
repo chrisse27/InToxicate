@@ -10,6 +10,7 @@
 
 @interface ToxFriendRequest : NSObject
 @property (nonatomic, readonly) uint8_t *clientId;
+@property (nonatomic, readonly) NSString *readableClientId;
 @property (nonatomic, readonly) NSString *message;
 
 - (id)initWithClientId: (uint8_t *)clientId Message: (NSString *)message;
