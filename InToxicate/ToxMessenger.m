@@ -57,6 +57,46 @@ void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t
     [master onFriendNameChangeWithMessenger:m FriendNumber:friendNumber NewName:friendName UserData:userData];
 }
 
+/*
+ resolve_addr():
+ address should represent IPv4 or a hostname with A record
+ 
+ returns a data in network byte order that can be used to set IP.i or IP_Port.ip.i
+ returns 0 on failure
+ 
+ TODO: Fix ipv6 support
+ */
+uint32_t resolve_addr(const char *address)
+{
+    struct addrinfo *server = NULL;
+    struct addrinfo  hints;
+    int              rc;
+    uint32_t         addr;
+    
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family   = AF_INET;    // IPv4 only right now.
+    hints.ai_socktype = SOCK_DGRAM; // type of socket Tox uses.
+    
+    rc = getaddrinfo(address, "echo", &hints, &server);
+    
+    // Lookup failed.
+    if (rc != 0) {
+        return 0;
+    }
+    
+    // IPv4 records only..
+    if (server->ai_family != AF_INET) {
+        freeaddrinfo(server);
+        return 0;
+    }
+    
+    
+    addr = ((struct sockaddr_in *)server->ai_addr)->sin_addr.s_addr;
+    
+    freeaddrinfo(server);
+    return addr;
+}
+
 #pragma mark instance stuff
 
 @synthesize delegate = _delegate;
@@ -147,7 +187,6 @@ void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t
 }
 
 - (void)initTox {
-    
     messenger = initMessenger();
     if (!messenger) {
         NSLog(@"Failed to allocate Messenger datastructure");
@@ -164,7 +203,7 @@ void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t
 
 
 - (void)initConnection {
-    if (DHT_isconnected()) {
+    if (DHT_isconnected(messenger->dht)) {
         return;
     }
     
@@ -186,22 +225,22 @@ void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t
         return;
     }
     
-    DHT_bootstrap(bootstrap_ip_port, (uint8_t*)[publicKeyData bytes]);
+    DHT_bootstrap(messenger->dht, bootstrap_ip_port, (uint8_t*)[publicKeyData bytes]);
 }
 
 - (void)doTox
 {
     doMessenger(messenger);
     
-    if (!hadConnectedToDHT && !DHT_isconnected() && !(connTryCount++ % 1000)) {
+    if (!hadConnectedToDHT && !DHT_isconnected(messenger->dht) && !(connTryCount++ % 1000)) {
         [self initConnection];
         NSLog(@"Establishing connection...\n");
     }
-    else if (!hadConnectedToDHT && DHT_isconnected()) {
+    else if (!hadConnectedToDHT && DHT_isconnected(messenger->dht)) {
         hadConnectedToDHT = YES;
         NSLog(@"DHT connected.\n");
     }
-    else if (hadConnectedToDHT && !DHT_isconnected()) {
+    else if (hadConnectedToDHT && !DHT_isconnected(messenger->dht)) {
         hadConnectedToDHT = NO;
         NSLog(@"DHT disconnected. Attempting to reconnect.\n");
         [self initConnection];

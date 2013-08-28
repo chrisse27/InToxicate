@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ToxFriend.h"
 #import "ToxFriendRequest.h"
 
 @class ToxMessenger;
@@ -15,4 +16,5 @@
 @protocol ToxMessengerNotifications <NSObject>
 @optional
 - (void)messenger: (ToxMessenger *)messenger hasReceivedFriendRequest: (ToxFriendRequest *)friendRequest;
+- (void)messenger: (ToxMessenger *)messenger hasReceivedFriendNameChange: (ToxFriend *) toxFriend;
 @end
