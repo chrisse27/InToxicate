@@ -11,8 +11,9 @@
 #import <UIKit/UITableView.h>
 
 #import "ToxMessengerNotifications.h"
+#import "ToxFriendRequestViewController.h"
 
-@interface ToxViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ToxMessengerNotifications>
+@interface ToxViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ToxMessengerNotifications, ToxFriendRequestViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *txtPublicKey;
 @property (weak, nonatomic) IBOutlet UITableView *friendList;
 

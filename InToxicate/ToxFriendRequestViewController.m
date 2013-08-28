@@ -18,6 +18,7 @@
 
 @synthesize messenger = _messenger;
 @synthesize friendRequest = _friendRequest;
+@synthesize delegate;
 
 - (void)setFriendRequest:(ToxFriendRequest *)friendRequest
 {
@@ -29,7 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
     self.messenger = [ToxAppDelegate messenger];
 }
@@ -39,6 +39,7 @@
     NSLog(@"Accepting request");
     //TODO if this view provides a delegate property for notifiying the view above that it accepted the request then we do not need to provide a reference to the messenger (check)
     [self.messenger acceptFriendRequest:self.friendRequest];
+    [self.delegate requested:self.friendRequest AcceptedBy:self];
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end

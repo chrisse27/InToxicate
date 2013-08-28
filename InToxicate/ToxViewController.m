@@ -42,6 +42,11 @@
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     switch (section) {
@@ -107,6 +112,7 @@
         ToxFriendRequest *friendRequest = [self.messenger.friendRequests objectAtIndex:self.friendList.indexPathForSelectedRow.row];
         ToxFriendRequestViewController *friendRequestViewController = segue.destinationViewController;
         friendRequestViewController.friendRequest = friendRequest;
+        friendRequestViewController.delegate = self;
     } else if ([segue.identifier isEqualToString:@"ShowFriend"]) {
         ToxFriend *friend = [self.messenger.friends objectAtIndex:self.friendList.indexPathForSelectedRow.row];
         ToxFriendViewController *friendViewController = segue.destinationViewController;
@@ -117,6 +123,15 @@
 #pragma mark - ToxMessengerNotifications
 
 - (void)messenger:(ToxMessenger *)messenger hasReceivedFriendRequest:(ToxFriendRequest *)friendRequest
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.friendList reloadData];
+    });
+}
+
+#pragma mark - ToxFriendRequestViewDelegate
+
+- (void)requested:(ToxFriendRequest *)request AcceptedBy:(id)sender
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.friendList reloadData];
