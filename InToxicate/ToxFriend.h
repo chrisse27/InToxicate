@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) Friend *cFriend;
 @property (nonatomic, readonly) int number;
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *status;
 
 - (id)initWithFriend:(Friend *) cFriend;
 @end

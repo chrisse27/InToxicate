@@ -31,12 +31,24 @@
                                             <segue destination="CtX-ov-uP8" kind="push" identifier="ShowFriendRequest" trigger="accessoryAction" id="2eh-In-Ftt"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ToxFriends" id="pNQ-ig-Wgf">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ToxFriends" textLabel="6FD-px-GVx" detailTextLabel="4F1-Fn-6IS" style="IBUITableViewCellStyleSubtitle" id="pNQ-ig-Wgf">
                                         <rect key="frame" x="0.0" y="66" width="280" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="247" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FD-px-GVx">
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4F1-Fn-6IS">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
@@ -58,7 +70,18 @@
                             <constraint firstItem="bJu-r6-Hid" firstAttribute="top" secondItem="3" secondAttribute="top" constant="20" symbolic="YES" type="default" id="wNd-H3-W78"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Contacts" id="wzx-4w-EQP"/>
+                    <navigationItem key="navigationItem" title="Contacts" id="wzx-4w-EQP">
+                        <barButtonItem key="leftBarButtonItem" title="Profile" id="QDO-71-Mve">
+                            <connections>
+                                <segue destination="F8T-7X-cDi" kind="push" identifier="ShowUserProfile" id="g0V-Ct-LhZ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="hrm-wc-8dY">
+                            <connections>
+                                <segue destination="hs3-di-PbN" kind="push" identifier="ShowAddNewFriend" id="yyt-6r-ifO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="friendList" destination="RA6-3K-Xfa" id="ffM-GM-L4a"/>
                         <outlet property="txtPublicKey" destination="bJu-r6-Hid" id="uaQ-vw-hRv"/>
@@ -67,6 +90,64 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="458" y="779"/>
+        </scene>
+        <!--Tox Add New Friend View Controller - Add New Friend-->
+        <scene sceneID="F6h-wf-9mn">
+            <objects>
+                <viewController id="hs3-di-PbN" customClass="ToxAddNewFriendViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kpr-rT-qYp">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cer-7w-uSg">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cer-7w-uSg" firstAttribute="leading" secondItem="Kpr-rT-qYp" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8zM-Bb-2EU"/>
+                            <constraint firstItem="cer-7w-uSg" firstAttribute="top" secondItem="Kpr-rT-qYp" secondAttribute="top" constant="20" symbolic="YES" type="default" id="JvC-e7-3PC"/>
+                            <constraint firstAttribute="trailing" secondItem="cer-7w-uSg" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="bNP-H4-oal"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add New Friend" id="eyD-Vd-KJI"/>
+                    <connections>
+                        <outlet property="txtUserId" destination="cer-7w-uSg" id="DJh-h9-RJR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lpS-jT-xY0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="502" y="-307"/>
+        </scene>
+        <!--Tox User Profile View Controller - User Profile-->
+        <scene sceneID="41Y-CA-G7i">
+            <objects>
+                <viewController id="F8T-7X-cDi" customClass="ToxUserProfileViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FeO-XS-jRa">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gjl-TB-GZV">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Gjl-TB-GZV" firstAttribute="top" secondItem="FeO-XS-jRa" secondAttribute="top" constant="20" symbolic="YES" type="default" id="GIM-Td-clR"/>
+                            <constraint firstAttribute="trailing" secondItem="Gjl-TB-GZV" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="RXV-h4-0lt"/>
+                            <constraint firstItem="Gjl-TB-GZV" firstAttribute="leading" secondItem="FeO-XS-jRa" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bH6-hh-MGO"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="User Profile" id="57s-oa-Vhy"/>
+                    <connections>
+                        <outlet property="userName" destination="Gjl-TB-GZV" id="XfH-2y-VpN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zIj-cp-mmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1036" y="-305"/>
         </scene>
         <!--Tox Friend Request View Controller - Friend Request-->
         <scene sceneID="e3e-D7-geJ">
@@ -80,13 +161,10 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="129" id="9Q1-HL-crY"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <state key="normal" title="Accept Request">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="accept:" destination="2" eventType="touchUpInside" id="5n6-KG-h21"/>

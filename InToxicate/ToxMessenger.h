@@ -14,6 +14,7 @@
 
 @interface ToxMessenger : NSObject
 @property (nonatomic,readonly) NSString *personalId;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic,readonly) NSString *dataPath;
 @property (nonatomic,readonly) NSArray *friends;
 @property (nonatomic,readonly) NSArray *friendRequests;
@@ -22,6 +23,7 @@
 
 - (void)start;
 
+- (ToxFriend *)addFriendWithUserId:(uint8_t *)userId;
 - (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest;
 - (void)sendMessage:(NSString *) message ToFriend:(ToxFriend *)toxFriend;
 @end

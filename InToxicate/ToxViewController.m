@@ -10,8 +10,10 @@
 
 #import "ToxAppDelegate.h"
 #import "ToxMessenger.h"
+#import "ToxAddNewFriendViewController.h"
 #import "ToxFriendViewController.h"
 #import "ToxFriendRequestViewController.h"
+#import "ToxUserProfileViewController.h"
 
 @interface ToxViewController ()
 @property ToxMessenger *messenger;
@@ -96,6 +98,7 @@
             }
             ToxFriend *friend = [self.messenger.friends objectAtIndex:indexPath.row];
             cell.textLabel.text = friend.name;
+            cell.detailTextLabel.text = friend.status;
         }
         default:
             break;
@@ -106,13 +109,25 @@
 
 #pragma mark - Navigation
 
+- (void)prepareForShowFriendRequestSegue:(UIStoryboardSegue *)segue
+{
+    ToxFriendRequest *friendRequest = [self.messenger.friendRequests objectAtIndex:self.friendList.indexPathForSelectedRow.row];
+    ToxFriendRequestViewController *friendRequestViewController = segue.destinationViewController;
+    friendRequestViewController.delegate = self;
+    friendRequestViewController.friendRequest = friendRequest;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"ShowFriendRequest"]) {
-        ToxFriendRequest *friendRequest = [self.messenger.friendRequests objectAtIndex:self.friendList.indexPathForSelectedRow.row];
-        ToxFriendRequestViewController *friendRequestViewController = segue.destinationViewController;
-        friendRequestViewController.friendRequest = friendRequest;
-        friendRequestViewController.delegate = self;
+    if ([segue.identifier isEqualToString:@"ShowUserProfile"]) {
+        ToxUserProfileViewController *userProfileViewController = segue.destinationViewController;
+        userProfileViewController.messenger = self.messenger;
+    } else if ([segue.identifier isEqualToString:@"ShowAddNewFriend"]) {
+        ToxAddNewFriendViewController *addNewFriendViewController = segue.destinationViewController;
+        addNewFriendViewController.delegate = self;
+        addNewFriendViewController.messenger = self.messenger;
+    } else if ([segue.identifier isEqualToString:@"ShowFriendRequest"]) {
+        [self prepareForShowFriendRequestSegue:segue];
     } else if ([segue.identifier isEqualToString:@"ShowFriend"]) {
         ToxFriend *friend = [self.messenger.friends objectAtIndex:self.friendList.indexPathForSelectedRow.row];
         ToxFriendViewController *friendViewController = segue.destinationViewController;
@@ -132,6 +147,15 @@
 #pragma mark - ToxFriendRequestViewDelegate
 
 - (void)requested:(ToxFriendRequest *)request AcceptedBy:(id)sender
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.friendList reloadData];
+    });
+}
+
+#pragma mark - ToxAddNewFriendViewDelegate
+
+- (void)addedNewFriend:(ToxFriend *)toxFriend
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.friendList reloadData];
