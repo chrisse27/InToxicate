@@ -33,7 +33,6 @@
     self.messenger = [ToxAppDelegate messenger];
     //TODO Make sure this is always set as delegate when active
     self.messenger.delegate = self;
-    self.txtPublicKey.text = self.messenger.personalId;
 }
 
 - (void)didReceiveMemoryWarning
@@ -138,6 +137,13 @@
 #pragma mark - ToxMessengerNotifications
 
 - (void)messenger:(ToxMessenger *)messenger hasReceivedFriendRequest:(ToxFriendRequest *)friendRequest
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.friendList reloadData];
+    });
+}
+
+- (void)messenger:(ToxMessenger *)messenger hasReceivedFriendNameChange:(ToxFriend *)toxFriend
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.friendList reloadData];

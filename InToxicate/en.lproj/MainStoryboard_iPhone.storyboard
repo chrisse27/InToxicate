@@ -12,18 +12,14 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bJu-r6-Hid">
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RA6-3K-Xfa">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ToxFriendRequests" id="yAO-50-4O0">
-                                        <rect key="frame" x="0.0" y="22" width="280" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -32,10 +28,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ToxFriends" textLabel="6FD-px-GVx" detailTextLabel="4F1-Fn-6IS" style="IBUITableViewCellStyleSubtitle" id="pNQ-ig-Wgf">
-                                        <rect key="frame" x="0.0" y="66" width="280" height="44"/>
+                                        <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FD-px-GVx">
@@ -61,13 +57,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bJu-r6-Hid" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="3Na-7e-OLy"/>
-                            <constraint firstItem="RA6-3K-Xfa" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="OT3-xg-f1p"/>
-                            <constraint firstAttribute="trailing" secondItem="bJu-r6-Hid" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="g6N-nf-pG8"/>
-                            <constraint firstAttribute="trailing" secondItem="RA6-3K-Xfa" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="rDX-T5-12m"/>
-                            <constraint firstAttribute="bottom" secondItem="RA6-3K-Xfa" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="s1I-41-syc"/>
-                            <constraint firstItem="RA6-3K-Xfa" firstAttribute="top" secondItem="bJu-r6-Hid" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="sqa-ja-qru"/>
-                            <constraint firstItem="bJu-r6-Hid" firstAttribute="top" secondItem="3" secondAttribute="top" constant="20" symbolic="YES" type="default" id="wNd-H3-W78"/>
+                            <constraint firstItem="RA6-3K-Xfa" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="3mK-bA-2px"/>
+                            <constraint firstItem="RA6-3K-Xfa" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="AKR-aA-T0j"/>
+                            <constraint firstItem="RA6-3K-Xfa" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="DZj-jY-KEp"/>
+                            <constraint firstItem="RA6-3K-Xfa" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="Z15-MD-KwK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="wzx-4w-EQP">
@@ -84,7 +77,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="friendList" destination="RA6-3K-Xfa" id="ffM-GM-L4a"/>
-                        <outlet property="txtPublicKey" destination="bJu-r6-Hid" id="uaQ-vw-hRv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -132,17 +124,39 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wmv-3c-E3i">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3E-gQ-TX4">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Id:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82n-qs-asQ">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Gjl-TB-GZV" firstAttribute="top" secondItem="FeO-XS-jRa" secondAttribute="top" constant="20" symbolic="YES" type="default" id="GIM-Td-clR"/>
+                            <constraint firstItem="82n-qs-asQ" firstAttribute="top" secondItem="FeO-XS-jRa" secondAttribute="top" constant="72" id="0w6-hi-cgP"/>
+                            <constraint firstItem="Gjl-TB-GZV" firstAttribute="top" secondItem="s3E-gQ-TX4" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="9gd-S2-Kbn"/>
+                            <constraint firstItem="wmv-3c-E3i" firstAttribute="leading" secondItem="FeO-XS-jRa" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Dtd-SH-dTl"/>
+                            <constraint firstItem="wmv-3c-E3i" firstAttribute="top" secondItem="82n-qs-asQ" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FLU-di-4oK"/>
+                            <constraint firstItem="s3E-gQ-TX4" firstAttribute="top" secondItem="FeO-XS-jRa" secondAttribute="top" constant="11" id="JFF-Qy-0cb"/>
                             <constraint firstAttribute="trailing" secondItem="Gjl-TB-GZV" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="RXV-h4-0lt"/>
+                            <constraint firstItem="82n-qs-asQ" firstAttribute="leading" secondItem="FeO-XS-jRa" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Yfb-xA-Zfq"/>
                             <constraint firstItem="Gjl-TB-GZV" firstAttribute="leading" secondItem="FeO-XS-jRa" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bH6-hh-MGO"/>
+                            <constraint firstItem="s3E-gQ-TX4" firstAttribute="leading" secondItem="FeO-XS-jRa" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="ctm-Yh-YQQ"/>
+                            <constraint firstAttribute="trailing" secondItem="wmv-3c-E3i" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="st0-cW-gJd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="User Profile" id="57s-oa-Vhy"/>
                     <connections>
-                        <outlet property="userName" destination="Gjl-TB-GZV" id="XfH-2y-VpN"/>
+                        <outlet property="txtUserId" destination="wmv-3c-E3i" id="gL1-D8-VHd"/>
+                        <outlet property="txtUserName" destination="Gjl-TB-GZV" id="ZLi-kw-G0D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zIj-cp-mmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,6 +242,41 @@
             <point key="canvasLocation" x="-9" y="779"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="ToxAddNewFriendViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxAddNewFriendViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="txtUserId" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ToxFriendRequestViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxFriendRequestViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="acceptRequest:"/>
+                <relationship kind="outlet" name="friendId" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ToxFriendViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxFriendViewController.h"/>
+        </class>
+        <class className="ToxUserProfileViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxUserProfileViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="txtUserId" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtUserName" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ToxViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="friendList" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="txtPublicKey" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

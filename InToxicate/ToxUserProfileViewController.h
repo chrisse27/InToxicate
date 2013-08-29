@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) ToxMessenger *messenger;
 
-@property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (weak, nonatomic) IBOutlet UITextField *txtUserName;
+@property (weak, nonatomic) IBOutlet UITextField *txtUserId;
 
 @end

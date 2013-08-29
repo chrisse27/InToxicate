@@ -23,9 +23,12 @@ typedef enum {
 - (void)load;
 
 - (void)onFriendRequest:(uint8_t*) cUserId Message:(NSString*) message UserData: (void *) cUserData;
-- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *) cUserData;
+- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *)cUserData;
+- (void)onFriendActionWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Action:(NSString *) action UserData: (void *)cUserData;
 - (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber NewName: (NSString *) name UserData: (void *) cUserData;
+- (void)onFriendStatusMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber StatusMessage:(NSString *) statusMessage UserData: (void *)cUserData;
 - (void)onFriendUserStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber UserStatus:(USERSTATUS)status UserData: (void *) cUserData;
+- (void)onFriendReadReceiptWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber Receipt:(uint32_t)receipt UserData: (void *) cUserData;
 - (void)onFriendConnectionStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber ConnectionStatus:(CONNECTIONSTATUS)status UserData: (void *) cUserData;
 @end
 
@@ -47,15 +50,19 @@ ToxMessenger *master;
 void onFriendRequest(uint8_t* cUserId, uint8_t* cMessage, uint16_t cMessageLength, void *userData)
 {
     NSString *message = [NSString stringWithUTF8String:(const char *)cMessage];
-    
     [master onFriendRequest:cUserId Message:message UserData:userData];
 }
 
 void onFriendMessage(Messenger *m, int friendNumber, uint8_t *cMessage, uint16_t cMessageLength, void *userData)
 {
     NSString *message = [NSString stringWithUTF8String:(const char *)cMessage];
-
     [master onFriendMessageWithMessenger:m FriendNumber:friendNumber Message:message UserData:userData];
+}
+
+void onFriendAction(Messenger *m, int friendNumber, uint8_t *cAction, uint16_t cActionLength, void *userData)
+{
+    NSString *action = [NSString stringWithUTF8String:(const char *)cAction];
+    [master onFriendActionWithMessenger:m FriendNumber:friendNumber Action:action UserData:userData];
 }
 
 void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t cNameLength, void *userData)
@@ -64,9 +71,20 @@ void onFriendNameChange(Messenger *m, int friendNumber, uint8_t *cName, uint16_t
     [master onFriendNameChangeWithMessenger:m FriendNumber:friendNumber NewName:friendName UserData:userData];
 }
 
+void onFriendStatusMessage(Messenger *m, int friendNumber, uint8_t *cStatusMessage, uint16_t cStatusMessageLength, void *userData)
+{
+    NSString *statusMessage = [NSString stringWithUTF8String:(const char *)cStatusMessage];
+    [master onFriendStatusMessageWithMessenger:m FriendNumber:friendNumber StatusMessage:statusMessage UserData:userData];
+}
+
 void onFriendUserStatusChange(Messenger *m, int friendNumber, USERSTATUS status, void *userData)
 {
     [master onFriendUserStatusChangeWithMessenger:m FriendNumber:friendNumber UserStatus:status UserData:userData];
+}
+
+void onFriendReadReceipt(Messenger *m, int friendNumber, uint32_t receipt, void *userData)
+{
+    
 }
 
 void onFriendConnectionStatusChange(Messenger *m, int friendNumber, uint8_t status, void *userData)
@@ -203,29 +221,29 @@ uint32_t resolve_addr(const char *address)
     }
 }
 
-- (void)initTox {
+- (void)initTox
+{
     messenger = initMessenger();
     if (!messenger) {
         NSLog(@"Failed to allocate Messenger datastructure");
         return;
     }
     
+    // set-up callbacks
     void *userData = NULL;
-    
     m_callback_friendrequest(messenger, onFriendRequest, userData);
     m_callback_friendmessage(messenger, onFriendMessage, userData);
-//    m_callback_action(Messenger *m, void (*function)(Messenger *m, int, uint8_t *, uint16_t, void *), userData);
+    m_callback_action(messenger, onFriendAction, userData);
     m_callback_namechange(messenger, onFriendNameChange, userData);
-    //    m_callback_statusmessage(m, print_statuschange, userData);
-//    m_callback_statusmessage(messenger, void (*function)(Messenger *m, int, uint8_t *, uint16_t, void *), userData);
-    
+    m_callback_statusmessage(messenger, onFriendStatusMessage, userData);
     m_callback_userstatus(messenger, onFriendUserStatusChange, userData);
-//    m_callback_read_receipt(messenger, void (*function)(Messenger *m, int, uint32_t, void *), userData);
+    m_callback_read_receipt(messenger, onFriendReadReceipt, userData);
     m_callback_connectionstatus(messenger, onFriendConnectionStatusChange, userData);
 }
 
 
-- (void)initConnection {
+- (void)initConnection
+{
     if (DHT_isconnected(messenger->dht)) {
         return;
     }
@@ -287,16 +305,41 @@ uint32_t resolve_addr(const char *address)
     
     int result = m_addfriend(messenger, userId, (uint8_t *)[dummyMessage UTF8String], dummyMessage.length + 1);
     
-    if (result < 0)
-    {
-        NSLog(@"Could not add friend: %d", result);
-        return nil;
+    switch (result) {
+        case FAERR_TOOLONG:
+            NSLog(@"Message is too long.");
+            return nil;
+
+        case FAERR_NOMESSAGE:
+            NSLog(@"Please add a message to your request.");
+            return nil;
+            
+        case FAERR_OWNKEY:
+            NSLog(@"That appears to be your own ID.");
+            return nil;
+            
+        case FAERR_ALREADYSENT:
+            NSLog(@"Friend request already sent.");
+            return nil;
+            
+        case FAERR_UNKNOWN:
+            NSLog(@"Undefined error when adding friend.");
+            return nil;
+            
+        case FAERR_BADCHECKSUM:
+            NSLog(@"Bad checksum in address.");
+            return nil;
+            
+        case FAERR_SETNEWNOSPAM:
+            NSLog(@"Nospam was different.");
+            return nil;
+            
+        default:
+            NSLog(@"Friend added as %d.", result);
+            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[result]];
+            [_friends addObject:friend];
+            return friend;
     }
-
-    ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[result]];
-    [_friends addObject:friend];
-
-    return friend;
 }
 
 - (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest
@@ -331,17 +374,37 @@ uint32_t resolve_addr(const char *address)
 
 - (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *) cUserData
 {
-    NSLog(@"Received message %@", message);
+    NSLog(@"Received message from friend %d: %@", friendNumber, message);
 }
 
-- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friend NewName: (NSString *) name UserData: (void *) cUserData
+- (void)onFriendActionWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber Action:(NSString *)action UserData:(void *)cUserData
 {
-    NSLog(@"Received name change for friend %d to %@", friend, name);
+    NSLog(@"Received action %@", action);
+}
+
+- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber NewName: (NSString *) name UserData: (void *) cUserData
+{
+    NSLog(@"Received name change for friend %d to %@", friendNumber, name);
+    
+    if ([self.delegate respondsToSelector:@selector(messenger:hasReceivedFriendNameChange:)]) {
+        ToxFriend *friend = [_friends objectAtIndex:friendNumber];
+        [self.delegate messenger:self hasReceivedFriendNameChange:friend];
+    }
+}
+
+- (void)onFriendStatusMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber StatusMessage:(NSString *) statusMessage UserData: (void *)cUserData
+{
+    NSLog(@"Received message from friend %d: %@", friendNumber, statusMessage);
 }
 
 - (void)onFriendUserStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber UserStatus:(USERSTATUS)status UserData:(void *)cUserData
 {
     NSLog(@"Received user status change for friend %d to state %d", friendNumber, status);
+}
+
+- (void)onFriendReadReceiptWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber Receipt:(uint32_t)receipt UserData: (void *) cUserData
+{
+    NSLog(@"Received read receipt %d from friend %d", receipt, friendNumber);
 }
 
 - (void)onFriendConnectionStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber ConnectionStatus:(CONNECTIONSTATUS)status UserData:(void *)cUserData

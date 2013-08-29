@@ -25,8 +25,10 @@
 {
     [super viewDidLoad];
     
-    self.userName.delegate = self;
-    self.userName.text = _messenger.name;
+    self.txtUserName.delegate = self;
+    self.txtUserName.text = _messenger.name;
+    
+    self.txtUserId.text = self.messenger.personalId;
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,8 +38,8 @@
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
     
-    [self.userName resignFirstResponder];
-    self.messenger.name = self.userName.text;
+    [self.txtUserName resignFirstResponder];
+    self.messenger.name = self.txtUserName.text;
     [self.navigationController popViewControllerAnimated:YES];
     return YES;
 }
