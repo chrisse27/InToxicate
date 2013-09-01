@@ -202,23 +202,42 @@ uint32_t resolve_addr(const char *address)
     return self;
 }
 
+- (void) dealloc
+{
+    [self shutdown];
+}
+
+- (void)shutdown
+{
+    cleanupMessenger(messenger);
+}
+
 - (void)load
 {
     NSData *data = [NSData dataWithContentsOfFile:self.dataPath];
     
     if (!data) {
         NSLog(@"Data file not found.");
-        
-        int messengerSize = Messenger_size(messenger);
-        NSMutableData *newData = [NSMutableData dataWithLength:messengerSize];
-        Messenger_save(messenger, (uint8_t*)[newData bytes]);
-        //TODO: Encrypt file!!!!!
-        [newData writeToFile:self.dataPath atomically:NO];
+        [self save];
         
         return;
     } else {
         Messenger_load(messenger, (uint8_t*)[data bytes], [data length]);
+        
+        for (int i=0; i < messenger->numfriends; ++i) {
+            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[i]];
+            [_friends addObject:friend];
+        }
     }
+}
+
+- (void)save
+{
+    int messengerSize = Messenger_size(messenger);
+    NSMutableData *newData = [NSMutableData dataWithLength:messengerSize];
+    Messenger_save(messenger, (uint8_t*)[newData bytes]);
+    //TODO: Encrypt file!!!!!
+    [newData writeToFile:self.dataPath atomically:NO];
 }
 
 - (void)initTox
@@ -295,8 +314,6 @@ uint32_t resolve_addr(const char *address)
     [self load];
     
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(doTox) userInfo:nil repeats:YES];
-    
-    //cleanupMessenger(messenger);
 }
 
 - (ToxFriend *)addFriendWithUserId:(uint8_t *)userId
@@ -338,18 +355,19 @@ uint32_t resolve_addr(const char *address)
             NSLog(@"Friend added as %d.", result);
             ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[result]];
             [_friends addObject:friend];
+            [self save];
             return friend;
     }
 }
 
 - (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest
 {
-    // Should we create the friend only here or already before????
     int friendNumber = m_addfriend_norequest(messenger, toxFriendRequest.clientId);
-    
     ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[friendNumber]];
     [_friends addObject:friend];
     [_friendRequests removeObject:toxFriendRequest];
+
+    [self save];
 }
 
 - (void)sendMessage:(NSString *) message ToFriend:(ToxFriend *)toxFriend
@@ -394,7 +412,7 @@ uint32_t resolve_addr(const char *address)
 
 - (void)onFriendStatusMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber StatusMessage:(NSString *) statusMessage UserData: (void *)cUserData
 {
-    NSLog(@"Received message from friend %d: %@", friendNumber, statusMessage);
+    NSLog(@"Received status message from friend %d: %@", friendNumber, statusMessage);
 }
 
 - (void)onFriendUserStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber UserStatus:(USERSTATUS)status UserData:(void *)cUserData

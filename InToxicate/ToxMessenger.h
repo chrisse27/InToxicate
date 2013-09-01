@@ -22,6 +22,8 @@
 @property (nonatomic,strong) id<ToxMessengerNotifications> delegate;
 
 - (void)start;
+- (void)save;
+- (void)shutdown;
 
 - (ToxFriend *)addFriendWithUserId:(uint8_t *)userId;
 - (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest;

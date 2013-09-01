@@ -215,13 +215,116 @@
                     <view key="view" contentMode="scaleToFill" id="6rE-Wf-T4w">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i8j-2s-DiU">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Chat">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="uDZ-oY-uIq" kind="push" identifier="StartChat" id="Rfh-On-I6H"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="i8j-2s-DiU" firstAttribute="centerX" secondItem="6rE-Wf-T4w" secondAttribute="centerX" type="default" id="fcB-ef-AW3"/>
+                            <constraint firstItem="i8j-2s-DiU" firstAttribute="top" secondItem="6rE-Wf-T4w" secondAttribute="top" constant="20" symbolic="YES" type="default" id="yB6-yf-4r7"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Friend" id="ELO-ua-znh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wdY-Ah-4Uh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1044" y="1132"/>
+        </scene>
+        <!--Tox Chat View Controller - Chat-->
+        <scene sceneID="IH9-Nu-6Zl">
+            <objects>
+                <tableViewController id="uDZ-oY-uIq" customClass="ToxChatViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ytS-wb-dXJ">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChatEntries" id="fba-Be-u63">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uDZ-oY-uIq" id="9T3-iD-bmW"/>
+                            <outlet property="delegate" destination="uDZ-oY-uIq" id="U3P-Tu-gpb"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Chat" id="dHQ-UG-szI">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="N3V-rf-alu">
+                            <connections>
+                                <segue destination="a4F-4e-74N" kind="push" identifier="ComposeMessage" id="HBB-6C-RRE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xKV-Sx-d7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1460" y="1138"/>
+        </scene>
+        <!--Tox New Message View Controller - New Message-->
+        <scene sceneID="4xk-IV-yfJ">
+            <objects>
+                <viewController id="a4F-4e-74N" customClass="ToxNewMessageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sG8-ju-Vom">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type some text..." translatesAutoresizingMaskIntoConstraints="NO" id="uMC-1U-3p6">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="GcR-62-kir"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdT-Bk-unp">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendMessage:" destination="a4F-4e-74N" eventType="touchUpInside" id="7L4-2o-tnI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="uMC-1U-3p6" firstAttribute="top" secondItem="sG8-ju-Vom" secondAttribute="top" type="default" id="9Ob-bX-aBj"/>
+                            <constraint firstAttribute="trailing" secondItem="uMC-1U-3p6" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="NVI-uD-N9m"/>
+                            <constraint firstItem="BdT-Bk-unp" firstAttribute="centerX" secondItem="uMC-1U-3p6" secondAttribute="centerX" type="default" id="SNd-6s-E3E"/>
+                            <constraint firstItem="uMC-1U-3p6" firstAttribute="leading" secondItem="sG8-ju-Vom" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="dLs-qz-fHY"/>
+                            <constraint firstItem="BdT-Bk-unp" firstAttribute="top" secondItem="sG8-ju-Vom" secondAttribute="top" constant="143" id="qiD-Tx-Laa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Message" id="rsc-7J-dKN"/>
+                    <connections>
+                        <outlet property="txtMessage" destination="uMC-1U-3p6" id="xfQ-n8-4dK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BY6-FV-R9f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1866" y="1144"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="InT-wF-4j9">
@@ -242,41 +345,6 @@
             <point key="canvasLocation" x="-9" y="779"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="ToxAddNewFriendViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxAddNewFriendViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="txtUserId" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="ToxFriendRequestViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxFriendRequestViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="acceptRequest:"/>
-                <relationship kind="outlet" name="friendId" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="ToxFriendViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxFriendViewController.h"/>
-        </class>
-        <class className="ToxUserProfileViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxUserProfileViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="txtUserId" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtUserName" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="ToxViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToxViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="friendList" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="txtPublicKey" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
