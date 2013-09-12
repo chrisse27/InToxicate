@@ -12,6 +12,8 @@
 #import "ToxFriendRequest.h"
 #import "ToxMessengerNotifications.h"
 
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendRquestNotification;
+
 @interface ToxMessenger : NSObject
 @property (nonatomic,readonly) NSString *personalId;
 @property (nonatomic, strong) NSString *name;

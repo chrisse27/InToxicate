@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26D6BF5E17CF475000BBE0A0 /* ToxUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF5D17CF475000BBE0A0 /* ToxUserProfileViewController.m */; };
+		26D6BF6117CF558500BBE0A0 /* ToxAddNewFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF6017CF558500BBE0A0 /* ToxAddNewFriendViewController.m */; };
+		26D6BF6417CF8F1200BBE0A0 /* ToxChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF6317CF8F1200BBE0A0 /* ToxChatViewController.m */; };
+		26D6BF6717CF8F6E00BBE0A0 /* ToxChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF6617CF8F6E00BBE0A0 /* ToxChat.m */; };
+		26D6BF6A17CF914200BBE0A0 /* ToxChatEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF6917CF914200BBE0A0 /* ToxChatEntry.m */; };
 		26D899FE17B98E8900F5FE36 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D899FD17B98E8900F5FE36 /* UIKit.framework */; };
 		26D89A0017B98E8900F5FE36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D899FF17B98E8900F5FE36 /* Foundation.framework */; };
 		26D89A0217B98E8900F5FE36 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D89A0117B98E8900F5FE36 /* CoreGraphics.framework */; };
@@ -19,9 +24,27 @@
 		26D89A1717B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26D89A1517B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard */; };
 		26D89A1A17B98E8900F5FE36 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26D89A1817B98E8900F5FE36 /* MainStoryboard_iPad.storyboard */; };
 		26D89A1D17B98E8900F5FE36 /* ToxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A1C17B98E8900F5FE36 /* ToxViewController.m */; };
+		26D89A2417B9905600F5FE36 /* libTox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D89A2317B9905600F5FE36 /* libTox.a */; };
+		26D89A2717BABEA300F5FE36 /* NSString+HexToData.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A2617BABEA300F5FE36 /* NSString+HexToData.m */; };
+		26D89A3117BE3CB300F5FE36 /* ToxMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A3017BE3CB300F5FE36 /* ToxMessenger.m */; };
+		26D89A3417BE8F1200F5FE36 /* ToxFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A3317BE8F1200F5FE36 /* ToxFriend.m */; };
+		26D89A3B17C75E5800F5FE36 /* ToxFriendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A3A17C75E5800F5FE36 /* ToxFriendRequest.m */; };
+		26D89A3E17CD070600F5FE36 /* ToxFriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A3D17CD070600F5FE36 /* ToxFriendRequestViewController.m */; };
+		26D89A4117CD533B00F5FE36 /* ToxFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D89A4017CD533B00F5FE36 /* ToxFriendViewController.m */; };
+		26FC997717D3CA4000A00925 /* ToxNewMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FC997617D3CA4000A00925 /* ToxNewMessageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26D6BF5C17CF475000BBE0A0 /* ToxUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxUserProfileViewController.h; sourceTree = "<group>"; };
+		26D6BF5D17CF475000BBE0A0 /* ToxUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxUserProfileViewController.m; sourceTree = "<group>"; };
+		26D6BF5F17CF558500BBE0A0 /* ToxAddNewFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxAddNewFriendViewController.h; sourceTree = "<group>"; };
+		26D6BF6017CF558500BBE0A0 /* ToxAddNewFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxAddNewFriendViewController.m; sourceTree = "<group>"; };
+		26D6BF6217CF8F1200BBE0A0 /* ToxChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxChatViewController.h; sourceTree = "<group>"; };
+		26D6BF6317CF8F1200BBE0A0 /* ToxChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxChatViewController.m; sourceTree = "<group>"; };
+		26D6BF6517CF8F6D00BBE0A0 /* ToxChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxChat.h; sourceTree = "<group>"; };
+		26D6BF6617CF8F6E00BBE0A0 /* ToxChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxChat.m; sourceTree = "<group>"; };
+		26D6BF6817CF914200BBE0A0 /* ToxChatEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxChatEntry.h; sourceTree = "<group>"; };
+		26D6BF6917CF914200BBE0A0 /* ToxChatEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxChatEntry.m; sourceTree = "<group>"; };
 		26D899FA17B98E8900F5FE36 /* InToxicate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InToxicate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26D899FD17B98E8900F5FE36 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		26D899FF17B98E8900F5FE36 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -39,6 +62,22 @@
 		26D89A1917B98E8900F5FE36 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		26D89A1B17B98E8900F5FE36 /* ToxViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToxViewController.h; sourceTree = "<group>"; };
 		26D89A1C17B98E8900F5FE36 /* ToxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToxViewController.m; sourceTree = "<group>"; };
+		26D89A2317B9905600F5FE36 /* libTox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTox.a; path = "../../../../Library/Developer/Xcode/DerivedData/ProjectTox-Core-iOS-egjjmilzbecbiedvgzaccwxfbdng/Build/Products/Debug-iphoneos/libTox.a"; sourceTree = "<group>"; };
+		26D89A2517BABEA300F5FE36 /* NSString+HexToData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HexToData.h"; sourceTree = "<group>"; };
+		26D89A2617BABEA300F5FE36 /* NSString+HexToData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HexToData.m"; sourceTree = "<group>"; };
+		26D89A2F17BE3CB300F5FE36 /* ToxMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxMessenger.h; sourceTree = "<group>"; };
+		26D89A3017BE3CB300F5FE36 /* ToxMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxMessenger.m; sourceTree = "<group>"; };
+		26D89A3217BE8F1200F5FE36 /* ToxFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxFriend.h; sourceTree = "<group>"; };
+		26D89A3317BE8F1200F5FE36 /* ToxFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxFriend.m; sourceTree = "<group>"; };
+		26D89A3917C75E5800F5FE36 /* ToxFriendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxFriendRequest.h; sourceTree = "<group>"; };
+		26D89A3A17C75E5800F5FE36 /* ToxFriendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxFriendRequest.m; sourceTree = "<group>"; };
+		26D89A3C17CD070600F5FE36 /* ToxFriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxFriendRequestViewController.h; sourceTree = "<group>"; };
+		26D89A3D17CD070600F5FE36 /* ToxFriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxFriendRequestViewController.m; sourceTree = "<group>"; };
+		26D89A3F17CD533B00F5FE36 /* ToxFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxFriendViewController.h; sourceTree = "<group>"; };
+		26D89A4017CD533B00F5FE36 /* ToxFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxFriendViewController.m; sourceTree = "<group>"; };
+		26D89A4217CD57F400F5FE36 /* ToxMessengerNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToxMessengerNotifications.h; sourceTree = "<group>"; };
+		26FC997517D3CA4000A00925 /* ToxNewMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxNewMessageViewController.h; sourceTree = "<group>"; };
+		26FC997617D3CA4000A00925 /* ToxNewMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxNewMessageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D89A2417B9905600F5FE36 /* libTox.a in Frameworks */,
 				26D899FE17B98E8900F5FE36 /* UIKit.framework in Frameworks */,
 				26D89A0017B98E8900F5FE36 /* Foundation.framework in Frameworks */,
 				26D89A0217B98E8900F5FE36 /* CoreGraphics.framework in Frameworks */,
@@ -58,6 +98,7 @@
 		26D899F117B98E8900F5FE36 = {
 			isa = PBXGroup;
 			children = (
+				26D89A2317B9905600F5FE36 /* libTox.a */,
 				26D89A0317B98E8900F5FE36 /* InToxicate */,
 				26D899FC17B98E8900F5FE36 /* Frameworks */,
 				26D899FB17B98E8900F5FE36 /* Products */,
@@ -85,12 +126,37 @@
 		26D89A0317B98E8900F5FE36 /* InToxicate */ = {
 			isa = PBXGroup;
 			children = (
-				26D89A0C17B98E8900F5FE36 /* ToxAppDelegate.h */,
-				26D89A0D17B98E8900F5FE36 /* ToxAppDelegate.m */,
+				26D89A2517BABEA300F5FE36 /* NSString+HexToData.h */,
+				26D89A2617BABEA300F5FE36 /* NSString+HexToData.m */,
 				26D89A1517B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard */,
 				26D89A1817B98E8900F5FE36 /* MainStoryboard_iPad.storyboard */,
+				26D89A0C17B98E8900F5FE36 /* ToxAppDelegate.h */,
+				26D89A0D17B98E8900F5FE36 /* ToxAppDelegate.m */,
+				26D6BF6517CF8F6D00BBE0A0 /* ToxChat.h */,
+				26D6BF6617CF8F6E00BBE0A0 /* ToxChat.m */,
+				26D6BF6817CF914200BBE0A0 /* ToxChatEntry.h */,
+				26D6BF6917CF914200BBE0A0 /* ToxChatEntry.m */,
+				26D89A3217BE8F1200F5FE36 /* ToxFriend.h */,
+				26D89A3317BE8F1200F5FE36 /* ToxFriend.m */,
+				26D89A3917C75E5800F5FE36 /* ToxFriendRequest.h */,
+				26D89A3A17C75E5800F5FE36 /* ToxFriendRequest.m */,
+				26D89A2F17BE3CB300F5FE36 /* ToxMessenger.h */,
+				26D89A3017BE3CB300F5FE36 /* ToxMessenger.m */,
+				26D89A4217CD57F400F5FE36 /* ToxMessengerNotifications.h */,
+				26FC997517D3CA4000A00925 /* ToxNewMessageViewController.h */,
+				26FC997617D3CA4000A00925 /* ToxNewMessageViewController.m */,
 				26D89A1B17B98E8900F5FE36 /* ToxViewController.h */,
 				26D89A1C17B98E8900F5FE36 /* ToxViewController.m */,
+				26D6BF5F17CF558500BBE0A0 /* ToxAddNewFriendViewController.h */,
+				26D6BF6017CF558500BBE0A0 /* ToxAddNewFriendViewController.m */,
+				26D6BF6217CF8F1200BBE0A0 /* ToxChatViewController.h */,
+				26D6BF6317CF8F1200BBE0A0 /* ToxChatViewController.m */,
+				26D89A3F17CD533B00F5FE36 /* ToxFriendViewController.h */,
+				26D89A4017CD533B00F5FE36 /* ToxFriendViewController.m */,
+				26D89A3C17CD070600F5FE36 /* ToxFriendRequestViewController.h */,
+				26D89A3D17CD070600F5FE36 /* ToxFriendRequestViewController.m */,
+				26D6BF5C17CF475000BBE0A0 /* ToxUserProfileViewController.h */,
+				26D6BF5D17CF475000BBE0A0 /* ToxUserProfileViewController.m */,
 				26D89A0417B98E8900F5FE36 /* Supporting Files */,
 			);
 			path = InToxicate;
@@ -181,6 +247,18 @@
 				26D89A0A17B98E8900F5FE36 /* main.m in Sources */,
 				26D89A0E17B98E8900F5FE36 /* ToxAppDelegate.m in Sources */,
 				26D89A1D17B98E8900F5FE36 /* ToxViewController.m in Sources */,
+				26D89A2717BABEA300F5FE36 /* NSString+HexToData.m in Sources */,
+				26D89A3117BE3CB300F5FE36 /* ToxMessenger.m in Sources */,
+				26D89A3417BE8F1200F5FE36 /* ToxFriend.m in Sources */,
+				26D89A3B17C75E5800F5FE36 /* ToxFriendRequest.m in Sources */,
+				26D89A3E17CD070600F5FE36 /* ToxFriendRequestViewController.m in Sources */,
+				26D89A4117CD533B00F5FE36 /* ToxFriendViewController.m in Sources */,
+				26D6BF5E17CF475000BBE0A0 /* ToxUserProfileViewController.m in Sources */,
+				26D6BF6117CF558500BBE0A0 /* ToxAddNewFriendViewController.m in Sources */,
+				26D6BF6417CF8F1200BBE0A0 /* ToxChatViewController.m in Sources */,
+				26D6BF6717CF8F6E00BBE0A0 /* ToxChat.m in Sources */,
+				26D6BF6A17CF914200BBE0A0 /* ToxChatEntry.m in Sources */,
+				26FC997717D3CA4000A00925 /* ToxNewMessageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +355,12 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InToxicate/InToxicate-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../**";
 				INFOPLIST_FILE = "InToxicate/InToxicate-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/ProjectTox-Core-iOS-egjjmilzbecbiedvgzaccwxfbdng/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -288,7 +371,12 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InToxicate/InToxicate-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../**";
 				INFOPLIST_FILE = "InToxicate/InToxicate-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/ProjectTox-Core-iOS-egjjmilzbecbiedvgzaccwxfbdng/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -313,6 +401,7 @@
 				26D89A2217B98E8900F5FE36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

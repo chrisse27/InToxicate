@@ -18,6 +18,8 @@ typedef enum {
     WENT_OFFLINE
 } CONNECTIONSTATUS;
 
+NSString * const ToxHasReceivedFriendRquestNotification = @"ToxHasReceivedFriendRquestNotification";
+
 @interface ToxMessenger()
 
 - (void)load;
@@ -385,6 +387,10 @@ uint32_t resolve_addr(const char *address)
     [_friendRequests addObject:friendRequest];
     
     //TODO: Cache respondsToSelector in bit field (see stackoverflow)
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendRquestNotification
+                                                        object:self
+                                                      userInfo:@{@"friendRequest":friendRequest}];
+    
     if ([self.delegate respondsToSelector:@selector(messenger:hasReceivedFriendRequest:)]) {
         [self.delegate messenger:self hasReceivedFriendRequest:friendRequest];
     }

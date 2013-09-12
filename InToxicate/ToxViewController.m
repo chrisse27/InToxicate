@@ -31,6 +31,10 @@
     self.friendList.dataSource = self;
     
     self.messenger = [ToxAppDelegate messenger];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadImage:) name:ToxHasReceivedFriendRquestNotification object:self.messenger];
+    
+    
     //TODO Make sure this is always set as delegate when active
     self.messenger.delegate = self;
 }
@@ -135,6 +139,15 @@
 }
 
 #pragma mark - ToxMessengerNotifications
+
+- (void)hasReceivedFriendRequest:(NSNotification*)notification
+{
+//    ToxFriendRequest *friendRequest = notification.userInfo[@"friendRequest"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.friendList reloadData];
+    });
+}
 
 - (void)messenger:(ToxMessenger *)messenger hasReceivedFriendRequest:(ToxFriendRequest *)friendRequest
 {
