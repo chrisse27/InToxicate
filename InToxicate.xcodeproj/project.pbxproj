@@ -94,7 +94,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		266E469E17EF088B00E1CBA5 /* messenger */ = {
+		266E469E17EF088B00E1CBA5 /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
 				26D6BF6517CF8F6D00BBE0A0 /* ToxChat.h */,
@@ -108,7 +108,16 @@
 				26D89A2F17BE3CB300F5FE36 /* ToxMessenger.h */,
 				26D89A3017BE3CB300F5FE36 /* ToxMessenger.m */,
 			);
-			name = messenger;
+			name = Messenger;
+			sourceTree = "<group>";
+		};
+		266E469F17EF098C00E1CBA5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				26D89A2517BABEA300F5FE36 /* NSString+HexToData.h */,
+				26D89A2617BABEA300F5FE36 /* NSString+HexToData.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		26D899F117B98E8900F5FE36 = {
@@ -142,9 +151,8 @@
 		26D89A0317B98E8900F5FE36 /* InToxicate */ = {
 			isa = PBXGroup;
 			children = (
-				266E469E17EF088B00E1CBA5 /* messenger */,
-				26D89A2517BABEA300F5FE36 /* NSString+HexToData.h */,
-				26D89A2617BABEA300F5FE36 /* NSString+HexToData.m */,
+				266E469E17EF088B00E1CBA5 /* Messenger */,
+				266E469F17EF098C00E1CBA5 /* Utilities */,
 				26D89A1517B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard */,
 				26D89A1817B98E8900F5FE36 /* MainStoryboard_iPad.storyboard */,
 				26D89A0C17B98E8900F5FE36 /* ToxAppDelegate.h */,
