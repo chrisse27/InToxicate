@@ -17,11 +17,29 @@
 
 @interface ToxViewController ()
 @property ToxMessenger *messenger;
+
+- (void)registerToNotificationsOfMessenger: (ToxMessenger *)messenger;
+- (void)deregisterFromNotificationsOfMessenger: (ToxMessenger *)messenger;
 @end
 
 @implementation ToxViewController
 
 @synthesize messenger = _messenger;
+
+- (ToxMessenger *)messenger {
+    return _messenger;
+}
+
+- (void)setMessenger:(ToxMessenger *)messenger
+{
+    if (_messenger != messenger) {
+        [self deregisterFromNotificationsOfMessenger: _messenger];
+        
+        _messenger = messenger;
+        
+        [self registerToNotificationsOfMessenger: _messenger];
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -31,18 +49,29 @@
     self.friendList.dataSource = self;
     
     self.messenger = [ToxAppDelegate messenger];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadImage:) name:ToxHasReceivedFriendRquestNotification object:self.messenger];
-    
-    
-    //TODO Make sure this is always set as delegate when active
-    self.messenger.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)registerToNotificationsOfMessenger: (ToxMessenger *)messenger;
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hasReceivedFriendRequest:) name:ToxHasReceivedFriendRequestNotification object:messenger];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hasReceivedFriendNameChange:) name:ToxHasReceivedFriendNameChangeNotification object:messenger];
+}
+
+- (void)deregisterFromNotificationsOfMessenger: (ToxMessenger *)messenger
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ToxHasReceivedFriendRequestNotification object:_messenger];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ToxHasReceivedFriendNameChangeNotification object:_messenger];
 }
 
 #pragma mark - Table view data source
@@ -149,14 +178,7 @@
     });
 }
 
-- (void)messenger:(ToxMessenger *)messenger hasReceivedFriendRequest:(ToxFriendRequest *)friendRequest
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.friendList reloadData];
-    });
-}
-
-- (void)messenger:(ToxMessenger *)messenger hasReceivedFriendNameChange:(ToxFriend *)toxFriend
+- (void)hasReceivedFriendNameChange:(NSNotification*)notification
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.friendList reloadData];

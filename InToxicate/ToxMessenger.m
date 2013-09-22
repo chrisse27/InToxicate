@@ -13,25 +13,69 @@
 #import "DHT.h"
 #import "Messenger.h"
 
-typedef enum {
+typedef enum CONNECTIONSTATUS {
     WENT_ONLINE,
     WENT_OFFLINE
 } CONNECTIONSTATUS;
 
-NSString * const ToxHasReceivedFriendRquestNotification = @"ToxHasReceivedFriendRquestNotification";
+typedef enum TOX_USERSTATUS {
+    TOX_USERSTATUS_NONE,
+    TOX_USERSTATUS_AWAY,
+    TOX_USERSTATUS_BUSY,
+    TOX_USERSTATUS_INVALID
+} TOX_USERSTATUS;
+
+NSString * const ToxHasReceivedFriendRequestNotification = @"ToxHasReceivedFriendRequestNotification";
+NSString * const ToxHasReceivedFriendMessageNotification = @"ToxHasReceivedFriendMessageNotification";
+NSString * const ToxHasReceivedFriendReadReceiptNotification = @"ToxHasReceivedFriendReadReceiptNotification";
+NSString * const ToxHasReceivedFriendNameChangeNotification = @"ToxHasReceivedFriendNameChangeNotification";
+NSString * const ToxHasReceivedFriendStatusChangeNotification = @"ToxHasReceivedFriendStatusChangeNotification";
+NSString * const ToxHasReceivedFriendStatusMessageNotification = @"ToxHasReceivedFriendStatusMessageNotification";
+NSString * const ToxHasReceivedFriendConnectionStatusMessageNotification = @"ToxHasReceivedFriendConnectionStatusMessageNotification";
+NSString * const ToxHasReceivedFriendActionNotification = @"ToxHasReceivedFriendActionNotification";
 
 @interface ToxMessenger()
 
 - (void)load;
 
-- (void)onFriendRequest:(uint8_t*) cUserId Message:(NSString*) message UserData: (void *) cUserData;
-- (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *)cUserData;
-- (void)onFriendActionWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Action:(NSString *) action UserData: (void *)cUserData;
-- (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber NewName: (NSString *) name UserData: (void *) cUserData;
-- (void)onFriendStatusMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber StatusMessage:(NSString *) statusMessage UserData: (void *)cUserData;
-- (void)onFriendUserStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber UserStatus:(USERSTATUS)status UserData: (void *) cUserData;
-- (void)onFriendReadReceiptWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber Receipt:(uint32_t)receipt UserData: (void *) cUserData;
-- (void)onFriendConnectionStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber ConnectionStatus:(CONNECTIONSTATUS)status UserData: (void *) cUserData;
+- (void)onFriendRequest:(uint8_t*) cUserId
+                Message:(NSString*) message
+               UserData: (void *) cUserData;
+
+- (void)onFriendMessageWithMessenger:(Messenger *)m
+                        FriendNumber:(int) friendNumber
+                             Message:(NSString *) message
+                            UserData: (void *)cUserData;
+
+- (void)onFriendActionWithMessenger:(Messenger *)m
+                       FriendNumber:(int) friendNumber
+                             Action:(NSString *) action
+                           UserData: (void *)cUserData;
+
+- (void)onFriendNameChangeWithMessenger:(Messenger *)m
+                           FriendNumber:(int)friendNumber
+                                NewName: (NSString *) name
+                               UserData: (void *) cUserData;
+
+- (void)onFriendStatusMessageWithMessenger:(Messenger *)m
+                              FriendNumber:(int) friendNumber
+                             StatusMessage:(NSString *) statusMessage
+                                  UserData: (void *)cUserData;
+
+- (void)onFriendUserStatusChangeWithMessenger:(Messenger *)m
+                                 FriendNumber:(int)friendNumber
+                                   UserStatus:(USERSTATUS)status
+                                     UserData: (void *) cUserData;
+
+- (void)onFriendReadReceiptWithMessenger:(Messenger *)m
+                            FriendNumber:(int)friendNumber
+                                 Receipt:(uint32_t)receipt
+                                UserData: (void *) cUserData;
+
+- (void)onFriendConnectionStatusChangeWithMessenger:(Messenger *)m
+                                       FriendNumber:(int)friendNumber
+                                   ConnectionStatus:(CONNECTIONSTATUS)status
+                                           UserData: (void *) cUserData;
 @end
 
 @implementation ToxMessenger
@@ -149,8 +193,6 @@ uint32_t resolve_addr(const char *address)
 
 #pragma mark instance stuff
 
-@synthesize delegate = _delegate;
-
 - (NSArray *)friends
 {
     return _friends;
@@ -244,7 +286,7 @@ uint32_t resolve_addr(const char *address)
 
 - (void)initTox
 {
-    messenger = initMessenger();
+    messenger = initMessenger(false);
     if (!messenger) {
         NSLog(@"Failed to allocate Messenger datastructure");
         return;
@@ -281,7 +323,7 @@ uint32_t resolve_addr(const char *address)
     bootstrap_ip_port.port = htons(port);
     int resolved_address = resolve_addr([ip UTF8String]);
     if (resolved_address != 0) {
-        bootstrap_ip_port.ip.i = resolved_address;
+        bootstrap_ip_port.ip.ip4.uint32 = resolved_address;
     } else {
         NSLog(@"Failed to resolve IP address");
         return;
@@ -385,54 +427,91 @@ uint32_t resolve_addr(const char *address)
     NSLog(@"Received friend request with message %@", message);
     
     [_friendRequests addObject:friendRequest];
-    
-    //TODO: Cache respondsToSelector in bit field (see stackoverflow)
-    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendRquestNotification
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendRequestNotification
                                                         object:self
                                                       userInfo:@{@"friendRequest":friendRequest}];
-    
-    if ([self.delegate respondsToSelector:@selector(messenger:hasReceivedFriendRequest:)]) {
-        [self.delegate messenger:self hasReceivedFriendRequest:friendRequest];
-    }
 }
 
 - (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *) cUserData
 {
     NSLog(@"Received message from friend %d: %@", friendNumber, message);
+
+    ToxFriend *friend = self.friends[friendNumber];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendRequestNotification
+                                                        object:self
+                                                      userInfo:@{@"friend" : friend,
+                                                                 @"message": message}];
 }
 
 - (void)onFriendActionWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber Action:(NSString *)action UserData:(void *)cUserData
 {
     NSLog(@"Received action %@", action);
+    
+    ToxFriend *friend = self.friends[friendNumber];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendActionNotification
+                                                        object:self
+                                                      userInfo:@{@"friend" : friend,
+                                                                 @"action": action}];
 }
 
 - (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber NewName: (NSString *) name UserData: (void *) cUserData
 {
     NSLog(@"Received name change for friend %d to %@", friendNumber, name);
-    
-    if ([self.delegate respondsToSelector:@selector(messenger:hasReceivedFriendNameChange:)]) {
-        ToxFriend *friend = [_friends objectAtIndex:friendNumber];
-        [self.delegate messenger:self hasReceivedFriendNameChange:friend];
-    }
+
+    ToxFriend *friend = self.friends[friendNumber];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendNameChangeNotification
+                                                        object:self
+                                                      userInfo:@{@"friend" : friend}];
 }
 
 - (void)onFriendStatusMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber StatusMessage:(NSString *) statusMessage UserData: (void *)cUserData
 {
     NSLog(@"Received status message from friend %d: %@", friendNumber, statusMessage);
+    
+    ToxFriend *friend = self.friends[friendNumber];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendStatusMessageNotification
+                                                        object:self
+                                                      userInfo:@{@"friend" : friend,
+                                                                 @"action": statusMessage}];
 }
 
 - (void)onFriendUserStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber UserStatus:(USERSTATUS)status UserData:(void *)cUserData
 {
     NSLog(@"Received user status change for friend %d to state %d", friendNumber, status);
+    
+    ToxFriend *friend = self.friends[friendNumber];
+    NSValue *statusValue = [NSValue value: &status withObjCType: @encode(enum TOX_USERSTATUS)];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendStatusChangeNotification
+                                                        object:self
+                                                      userInfo:@{@"friend" : friend,
+                                                                 @"status": statusValue}];
 }
 
 - (void)onFriendReadReceiptWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber Receipt:(uint32_t)receipt UserData: (void *) cUserData
 {
     NSLog(@"Received read receipt %d from friend %d", receipt, friendNumber);
+    
+    ToxFriend *friend = self.friends[friendNumber];
+    NSNumber *receiptValue = [NSNumber numberWithInt:receipt];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendStatusChangeNotification
+                                                        object:self
+                                                      userInfo:@{@"friend" : friend,
+                                                                 @"receipt": receiptValue}];
 }
 
 - (void)onFriendConnectionStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber ConnectionStatus:(CONNECTIONSTATUS)status UserData:(void *)cUserData
 {
     NSLog(@"Received user connection status change for friend %d to state %d", friendNumber, status);
+    
+    ToxFriend *friend = self.friends[friendNumber];
+    NSValue *statusValue = [NSValue value: &status withObjCType: @encode(enum CONNECTIONSTATUS)];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendStatusChangeNotification
+                                                        object:self
+                                                      userInfo:@{@"friend"          : friend,
+                                                                 @"connectionStatus": statusValue}];
 }
 @end

@@ -12,7 +12,14 @@
 #import "ToxFriendRequest.h"
 #import "ToxMessengerNotifications.h"
 
-FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendRquestNotification;
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendRequestNotification;
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendMessageNotification;
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendReadReceiptNotification;
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendNameChangeNotification;
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendStatusChangeNotification;
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendStatusMessageNotification;
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendConnectionStatusMessageNotification;
+FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendActionNotification;
 
 @interface ToxMessenger : NSObject
 @property (nonatomic,readonly) NSString *personalId;
@@ -20,8 +27,6 @@ FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendRquestNotification;
 @property (nonatomic,readonly) NSString *dataPath;
 @property (nonatomic,readonly) NSArray *friends;
 @property (nonatomic,readonly) NSArray *friendRequests;
-
-@property (nonatomic,strong) id<ToxMessengerNotifications> delegate;
 
 - (void)start;
 - (void)save;
