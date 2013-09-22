@@ -21,6 +21,14 @@ FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendStatusMessageNotification
 FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendConnectionStatusMessageNotification;
 FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendActionNotification;
 
+FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendKey;
+FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendRequestKey;
+FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendReadReceiptKey;
+FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendConnectionStatusKey;
+FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendUserStatusKey;
+FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendMessageKey;
+FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendActionKey;
+
 @interface ToxMessenger : NSObject
 @property (nonatomic,readonly) NSString *personalId;
 @property (nonatomic, strong) NSString *name;

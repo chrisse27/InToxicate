@@ -13,12 +13,28 @@
 
 @interface ToxChatViewController ()
 @property (strong, nonatomic) ToxMessenger *messenger;
+
+- (void)registerToNotificationsOfMessenger: (ToxMessenger *)messenger;
+- (void)deregisterFromNotificationsOfMessenger: (ToxMessenger *)messenger;
 @end
 
 @implementation ToxChatViewController
 
 @synthesize messenger = _messenger;
 @synthesize toxFriend = _toxFriend;
+
+- (ToxMessenger *)messenger {
+    return _messenger;
+}
+
+- (void)setMessenger:(ToxMessenger *)messenger
+{
+    if (_messenger != messenger) {
+        [self deregisterFromNotificationsOfMessenger: _messenger];
+        _messenger = messenger;
+        [self registerToNotificationsOfMessenger: _messenger];
+    }
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -47,6 +63,19 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)registerToNotificationsOfMessenger: (ToxMessenger *)messenger;
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hasReceivedFriendNameChange:) name:ToxHasReceivedFriendNameChangeNotification object:messenger];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hasReceivedFriendMessage:) name:ToxHasReceivedFriendMessageNotification object:messenger];
+}
+
+- (void)deregisterFromNotificationsOfMessenger: (ToxMessenger *)messenger
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ToxHasReceivedFriendNameChangeNotification object:_messenger];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ToxHasReceivedFriendMessageNotification object:_messenger];
 }
 
 #pragma mark - Table view data source
@@ -140,6 +169,34 @@
 - (void)sendMessage:(NSString *)message
 {
     [self.messenger sendMessage:message ToFriend:self.toxFriend];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+#pragma mark - ToxMessengerNotifications
+
+- (void)hasReceivedFriendNameChange:(NSNotification*)notification
+{
+    ToxFriend *friend = notification.userInfo[ToxMessengerNotificationsFriendKey];
+    
+    if (friend != self.toxFriend) {
+        return;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+- (void)hasReceivedFriendMessage:(NSNotification*)notification
+{
+    ToxFriend *friend = notification.userInfo[ToxMessengerNotificationsFriendKey];
+    
+    if (friend != self.toxFriend) {
+        return;
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];

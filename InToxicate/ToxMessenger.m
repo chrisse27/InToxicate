@@ -34,6 +34,14 @@ NSString * const ToxHasReceivedFriendStatusMessageNotification = @"ToxHasReceive
 NSString * const ToxHasReceivedFriendConnectionStatusMessageNotification = @"ToxHasReceivedFriendConnectionStatusMessageNotification";
 NSString * const ToxHasReceivedFriendActionNotification = @"ToxHasReceivedFriendActionNotification";
 
+NSString * const ToxMessengerNotificationsFriendKey = @"ToxMessengerNoticationsFriendKey";
+NSString * const ToxMessengerNotificationsFriendRequestKey = @"ToxMessengerNoticationsFriendRequestKey";
+NSString * const ToxMessengerNotificationsFriendReadReceiptKey = @"ToxMessengerNoticationsFriendReadReceiptKey";
+NSString * const ToxMessengerNotificationsFriendConnectionStatusKey = @"ToxMessengerNoticationsFriendConnectionStatusKey";
+NSString * const ToxMessengerNotificationsFriendUserStatusKey = @"ToxMessengerNoticationsFriendUserStatusKey";
+NSString * const ToxMessengerNotificationsFriendMessageKey = @"ToxMessengerNoticationsFriendMessageKey";
+NSString * const ToxMessengerNotificationsFriendActionKey = @"ToxMessengerNoticationsFriendActionKey";
+
 @interface ToxMessenger()
 
 - (void)load;
@@ -430,7 +438,7 @@ uint32_t resolve_addr(const char *address)
 
     [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendRequestNotification
                                                         object:self
-                                                      userInfo:@{@"friendRequest":friendRequest}];
+                                                      userInfo:@{ToxMessengerNotificationsFriendRequestKey:friendRequest}];
 }
 
 - (void)onFriendMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber Message:(NSString *) message UserData: (void *) cUserData
@@ -440,8 +448,8 @@ uint32_t resolve_addr(const char *address)
     ToxFriend *friend = self.friends[friendNumber];
     [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendRequestNotification
                                                         object:self
-                                                      userInfo:@{@"friend" : friend,
-                                                                 @"message": message}];
+                                                      userInfo:@{ToxMessengerNotificationsFriendKey        : friend,
+                                                                 ToxMessengerNotificationsFriendMessageKey : message}];
 }
 
 - (void)onFriendActionWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber Action:(NSString *)action UserData:(void *)cUserData
@@ -451,8 +459,8 @@ uint32_t resolve_addr(const char *address)
     ToxFriend *friend = self.friends[friendNumber];
     [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendActionNotification
                                                         object:self
-                                                      userInfo:@{@"friend" : friend,
-                                                                 @"action": action}];
+                                                      userInfo:@{ToxMessengerNotificationsFriendKey       : friend,
+                                                                 ToxMessengerNotificationsFriendActionKey : action}];
 }
 
 - (void)onFriendNameChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber NewName: (NSString *) name UserData: (void *) cUserData
@@ -462,7 +470,7 @@ uint32_t resolve_addr(const char *address)
     ToxFriend *friend = self.friends[friendNumber];
     [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendNameChangeNotification
                                                         object:self
-                                                      userInfo:@{@"friend" : friend}];
+                                                      userInfo:@{ToxMessengerNotificationsFriendKey : friend}];
 }
 
 - (void)onFriendStatusMessageWithMessenger:(Messenger *)m FriendNumber:(int) friendNumber StatusMessage:(NSString *) statusMessage UserData: (void *)cUserData
@@ -472,8 +480,8 @@ uint32_t resolve_addr(const char *address)
     ToxFriend *friend = self.friends[friendNumber];
     [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendStatusMessageNotification
                                                         object:self
-                                                      userInfo:@{@"friend" : friend,
-                                                                 @"action": statusMessage}];
+                                                      userInfo:@{ToxMessengerNotificationsFriendKey       : friend,
+                                                                 ToxMessengerNotificationsFriendActionKey : statusMessage}];
 }
 
 - (void)onFriendUserStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber UserStatus:(USERSTATUS)status UserData:(void *)cUserData
@@ -485,8 +493,8 @@ uint32_t resolve_addr(const char *address)
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendStatusChangeNotification
                                                         object:self
-                                                      userInfo:@{@"friend" : friend,
-                                                                 @"status": statusValue}];
+                                                      userInfo:@{ToxMessengerNotificationsFriendKey           : friend,
+                                                                 ToxMessengerNotificationsFriendUserStatusKey : statusValue}];
 }
 
 - (void)onFriendReadReceiptWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber Receipt:(uint32_t)receipt UserData: (void *) cUserData
@@ -498,8 +506,8 @@ uint32_t resolve_addr(const char *address)
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendStatusChangeNotification
                                                         object:self
-                                                      userInfo:@{@"friend" : friend,
-                                                                 @"receipt": receiptValue}];
+                                                      userInfo:@{ToxMessengerNotificationsFriendKey            : friend,
+                                                                 ToxMessengerNotificationsFriendReadReceiptKey : receiptValue}];
 }
 
 - (void)onFriendConnectionStatusChangeWithMessenger:(Messenger *)m FriendNumber:(int)friendNumber ConnectionStatus:(CONNECTIONSTATUS)status UserData:(void *)cUserData
@@ -511,7 +519,7 @@ uint32_t resolve_addr(const char *address)
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendStatusChangeNotification
                                                         object:self
-                                                      userInfo:@{@"friend"          : friend,
-                                                                 @"connectionStatus": statusValue}];
+                                                      userInfo:@{ToxMessengerNotificationsFriendKey                 : friend,
+                                                                 ToxMessengerNotificationsFriendConnectionStatusKey : statusValue}];
 }
 @end

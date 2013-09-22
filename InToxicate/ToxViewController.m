@@ -34,9 +34,7 @@
 {
     if (_messenger != messenger) {
         [self deregisterFromNotificationsOfMessenger: _messenger];
-        
         _messenger = messenger;
-        
         [self registerToNotificationsOfMessenger: _messenger];
     }
 }
@@ -171,8 +169,6 @@
 
 - (void)hasReceivedFriendRequest:(NSNotification*)notification
 {
-//    ToxFriendRequest *friendRequest = notification.userInfo[@"friendRequest"];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.friendList reloadData];
     });
