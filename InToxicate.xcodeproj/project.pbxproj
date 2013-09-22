@@ -75,7 +75,6 @@
 		26D89A3D17CD070600F5FE36 /* ToxFriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxFriendRequestViewController.m; sourceTree = "<group>"; };
 		26D89A3F17CD533B00F5FE36 /* ToxFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxFriendViewController.h; sourceTree = "<group>"; };
 		26D89A4017CD533B00F5FE36 /* ToxFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxFriendViewController.m; sourceTree = "<group>"; };
-		26D89A4217CD57F400F5FE36 /* ToxMessengerNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToxMessengerNotifications.h; sourceTree = "<group>"; };
 		26FC997517D3CA4000A00925 /* ToxNewMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxNewMessageViewController.h; sourceTree = "<group>"; };
 		26FC997617D3CA4000A00925 /* ToxNewMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxNewMessageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +94,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		266E469E17EF088B00E1CBA5 /* messenger */ = {
+			isa = PBXGroup;
+			children = (
+				26D6BF6517CF8F6D00BBE0A0 /* ToxChat.h */,
+				26D6BF6617CF8F6E00BBE0A0 /* ToxChat.m */,
+				26D6BF6817CF914200BBE0A0 /* ToxChatEntry.h */,
+				26D6BF6917CF914200BBE0A0 /* ToxChatEntry.m */,
+				26D89A3217BE8F1200F5FE36 /* ToxFriend.h */,
+				26D89A3317BE8F1200F5FE36 /* ToxFriend.m */,
+				26D89A3917C75E5800F5FE36 /* ToxFriendRequest.h */,
+				26D89A3A17C75E5800F5FE36 /* ToxFriendRequest.m */,
+				26D89A2F17BE3CB300F5FE36 /* ToxMessenger.h */,
+				26D89A3017BE3CB300F5FE36 /* ToxMessenger.m */,
+			);
+			name = messenger;
+			sourceTree = "<group>";
+		};
 		26D899F117B98E8900F5FE36 = {
 			isa = PBXGroup;
 			children = (
@@ -126,23 +142,13 @@
 		26D89A0317B98E8900F5FE36 /* InToxicate */ = {
 			isa = PBXGroup;
 			children = (
+				266E469E17EF088B00E1CBA5 /* messenger */,
 				26D89A2517BABEA300F5FE36 /* NSString+HexToData.h */,
 				26D89A2617BABEA300F5FE36 /* NSString+HexToData.m */,
 				26D89A1517B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard */,
 				26D89A1817B98E8900F5FE36 /* MainStoryboard_iPad.storyboard */,
 				26D89A0C17B98E8900F5FE36 /* ToxAppDelegate.h */,
 				26D89A0D17B98E8900F5FE36 /* ToxAppDelegate.m */,
-				26D6BF6517CF8F6D00BBE0A0 /* ToxChat.h */,
-				26D6BF6617CF8F6E00BBE0A0 /* ToxChat.m */,
-				26D6BF6817CF914200BBE0A0 /* ToxChatEntry.h */,
-				26D6BF6917CF914200BBE0A0 /* ToxChatEntry.m */,
-				26D89A3217BE8F1200F5FE36 /* ToxFriend.h */,
-				26D89A3317BE8F1200F5FE36 /* ToxFriend.m */,
-				26D89A3917C75E5800F5FE36 /* ToxFriendRequest.h */,
-				26D89A3A17C75E5800F5FE36 /* ToxFriendRequest.m */,
-				26D89A2F17BE3CB300F5FE36 /* ToxMessenger.h */,
-				26D89A3017BE3CB300F5FE36 /* ToxMessenger.m */,
-				26D89A4217CD57F400F5FE36 /* ToxMessengerNotifications.h */,
 				26FC997517D3CA4000A00925 /* ToxNewMessageViewController.h */,
 				26FC997617D3CA4000A00925 /* ToxNewMessageViewController.m */,
 				26D89A1B17B98E8900F5FE36 /* ToxViewController.h */,
@@ -357,11 +363,13 @@
 				GCC_PREFIX_HEADER = "InToxicate/InToxicate-Prefix.pch";
 				HEADER_SEARCH_PATHS = "../**";
 				INFOPLIST_FILE = "InToxicate/InToxicate-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/ProjectTox-Core-iOS-egjjmilzbecbiedvgzaccwxfbdng/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -373,11 +381,13 @@
 				GCC_PREFIX_HEADER = "InToxicate/InToxicate-Prefix.pch";
 				HEADER_SEARCH_PATHS = "../**";
 				INFOPLIST_FILE = "InToxicate/InToxicate-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/ProjectTox-Core-iOS-egjjmilzbecbiedvgzaccwxfbdng/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

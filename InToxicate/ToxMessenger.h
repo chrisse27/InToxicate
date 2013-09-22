@@ -10,7 +10,6 @@
 
 #import "ToxFriend.h"
 #import "ToxFriendRequest.h"
-#import "ToxMessengerNotifications.h"
 
 FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendRequestNotification;
 FOUNDATION_EXPORT NSString * const ToxHasReceivedFriendMessageNotification;
