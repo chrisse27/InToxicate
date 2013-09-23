@@ -40,9 +40,9 @@
     [_friends addObject:friend];
 }
 
-- (void) addMessage:(NSString *)message From:(ToxFriend *)aFriend
+- (void) addMessage:(NSString *)message From:(id<ToxPerson>)source
 {
-    ToxChatEntry *entry = [[ToxChatEntry alloc] initWithSource:aFriend Message: message];
+    ToxChatEntry *entry = [[ToxChatEntry alloc] initWithSource:source Message: message];
     
     [_entries addObject:entry];
 }

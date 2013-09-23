@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ToxPerson.h"
 #import "ToxFriend.h"
 
 @class ToxFriend;
@@ -17,5 +18,5 @@
 @property (readonly, nonatomic) NSArray *entries;
 
 - (void) addFriend:(ToxFriend *)aFriend;
-- (void) addMessage:(NSString *)message From:(ToxFriend *)aFriend;
+- (void) addMessage:(NSString *)message From:(id<ToxPerson>)source;
 @end

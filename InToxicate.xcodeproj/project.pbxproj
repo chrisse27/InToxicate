@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		266E46A517F0548C00E1CBA5 /* ToxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 266E46A417F0548C00E1CBA5 /* ToxUser.m */; };
 		26D6BF5E17CF475000BBE0A0 /* ToxUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF5D17CF475000BBE0A0 /* ToxUserProfileViewController.m */; };
 		26D6BF6117CF558500BBE0A0 /* ToxAddNewFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF6017CF558500BBE0A0 /* ToxAddNewFriendViewController.m */; };
 		26D6BF6417CF8F1200BBE0A0 /* ToxChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF6317CF8F1200BBE0A0 /* ToxChatViewController.m */; };
@@ -35,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		266E46A017F052CD00E1CBA5 /* ToxPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ToxPerson.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		266E46A317F0548C00E1CBA5 /* ToxUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxUser.h; sourceTree = "<group>"; };
+		266E46A417F0548C00E1CBA5 /* ToxUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxUser.m; sourceTree = "<group>"; };
 		26D6BF5C17CF475000BBE0A0 /* ToxUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxUserProfileViewController.h; sourceTree = "<group>"; };
 		26D6BF5D17CF475000BBE0A0 /* ToxUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxUserProfileViewController.m; sourceTree = "<group>"; };
 		26D6BF5F17CF558500BBE0A0 /* ToxAddNewFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxAddNewFriendViewController.h; sourceTree = "<group>"; };
@@ -101,12 +105,15 @@
 				26D6BF6617CF8F6E00BBE0A0 /* ToxChat.m */,
 				26D6BF6817CF914200BBE0A0 /* ToxChatEntry.h */,
 				26D6BF6917CF914200BBE0A0 /* ToxChatEntry.m */,
+				266E46A017F052CD00E1CBA5 /* ToxPerson.h */,
 				26D89A3217BE8F1200F5FE36 /* ToxFriend.h */,
 				26D89A3317BE8F1200F5FE36 /* ToxFriend.m */,
 				26D89A3917C75E5800F5FE36 /* ToxFriendRequest.h */,
 				26D89A3A17C75E5800F5FE36 /* ToxFriendRequest.m */,
 				26D89A2F17BE3CB300F5FE36 /* ToxMessenger.h */,
 				26D89A3017BE3CB300F5FE36 /* ToxMessenger.m */,
+				266E46A317F0548C00E1CBA5 /* ToxUser.h */,
+				266E46A417F0548C00E1CBA5 /* ToxUser.m */,
 			);
 			name = Messenger;
 			sourceTree = "<group>";
@@ -272,6 +279,7 @@
 				26D6BF6417CF8F1200BBE0A0 /* ToxChatViewController.m in Sources */,
 				26D6BF6717CF8F6E00BBE0A0 /* ToxChat.m in Sources */,
 				26D6BF6A17CF914200BBE0A0 /* ToxChatEntry.m in Sources */,
+				266E46A517F0548C00E1CBA5 /* ToxUser.m in Sources */,
 				26FC997717D3CA4000A00925 /* ToxNewMessageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

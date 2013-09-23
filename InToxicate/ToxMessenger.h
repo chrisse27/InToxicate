@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ToxUser.h"
 #import "ToxFriend.h"
 #import "ToxFriendRequest.h"
 
@@ -28,7 +29,10 @@ FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendUserStatusKey;
 FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendMessageKey;
 FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendActionKey;
 
+@class ToxUser;
+
 @interface ToxMessenger : NSObject
+@property (nonatomic, readonly) ToxUser *user;
 @property (nonatomic,readonly) NSString *personalId;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic,readonly) NSString *dataPath;

@@ -201,6 +201,8 @@ uint32_t resolve_addr(const char *address)
 
 #pragma mark instance stuff
 
+@synthesize user = _user;
+
 - (NSArray *)friends
 {
     return _friends;
@@ -248,6 +250,8 @@ uint32_t resolve_addr(const char *address)
         
         _friendRequests = [[NSMutableArray alloc] init];
         _friends = [[NSMutableArray alloc] init];
+        
+        _user = [[ToxUser alloc] initWithMessenger:self];
         
         [self start];
     }
@@ -424,7 +428,13 @@ uint32_t resolve_addr(const char *address)
 
 - (void)sendMessage:(NSString *) message ToFriend:(ToxFriend *)toxFriend
 {
-    m_sendmessage(messenger, toxFriend.number, (uint8_t *)[message UTF8String], [message lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+    int result = m_sendmessage(messenger, toxFriend.number, (uint8_t *)[message UTF8String], [message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1); // add 1 for null termination
+    
+    if (result == 0) {
+        NSLog(@"Failed to send message to %@", toxFriend.name);
+    } else {
+        [toxFriend.chat addMessage:message From:self.user];
+    }
 }
 
 #pragma mark - Instance callbacks

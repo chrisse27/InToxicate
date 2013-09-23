@@ -10,7 +10,10 @@
 
 @implementation ToxChatEntry
 
-- (id)initWithSource:(ToxFriend *)source Message:(NSString *)message
+@synthesize source = _source;
+@synthesize message = _message;
+
+- (id)initWithSource:(id<ToxPerson>)source Message:(NSString *)message
 {
     self = [super init];
     if (self) {
@@ -19,8 +22,5 @@
     }
     return self;
 }
-
-@synthesize source = _source;
-@synthesize message = _message;
 
 @end

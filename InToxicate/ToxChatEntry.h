@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ToxFriend.h"
+#import "ToxPerson.h"
 
 @interface ToxChatEntry : NSObject
-@property (readonly, nonatomic) ToxFriend *source;
+@property (readonly, nonatomic) id<ToxPerson> source;
 @property (readonly, nonatomic) NSString *message;
 
-- (id)initWithSource:(ToxFriend *)source Message:(NSString *)message;
+- (id)initWithSource:(id<ToxPerson>)source Message:(NSString *)message;
 @end

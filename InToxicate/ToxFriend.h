@@ -10,13 +10,13 @@
 
 #import "Messenger.h"
 #import "ToxChat.h"
+#import "ToxPerson.h"
 
 @class ToxChat;
 
-@interface ToxFriend : NSObject
+@interface ToxFriend : NSObject<ToxPerson>
 @property (nonatomic, readonly) Friend *cFriend;
 @property (nonatomic, readonly) int number;
-@property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *status;
 
 @property (nonatomic, readonly) ToxChat *chat;
