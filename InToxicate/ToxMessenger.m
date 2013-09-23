@@ -159,46 +159,6 @@ void onFriendConnectionStatusChange(Messenger *m, int friendNumber, uint8_t stat
     [master onFriendConnectionStatusChangeWithMessenger:m FriendNumber:friendNumber ConnectionStatus:connStatus UserData:userData];
 }
 
-/*
- resolve_addr():
- address should represent IPv4 or a hostname with A record
- 
- returns a data in network byte order that can be used to set IP.i or IP_Port.ip.i
- returns 0 on failure
- 
- TODO: Fix ipv6 support
- */
-uint32_t resolve_addr(const char *address)
-{
-    struct addrinfo *server = NULL;
-    struct addrinfo  hints;
-    int              rc;
-    uint32_t         addr;
-    
-    memset(&hints, 0, sizeof(hints));
-    hints.ai_family   = AF_INET;    // IPv4 only right now.
-    hints.ai_socktype = SOCK_DGRAM; // type of socket Tox uses.
-    
-    rc = getaddrinfo(address, "echo", &hints, &server);
-    
-    // Lookup failed.
-    if (rc != 0) {
-        return 0;
-    }
-    
-    // IPv4 records only..
-    if (server->ai_family != AF_INET) {
-        freeaddrinfo(server);
-        return 0;
-    }
-    
-    
-    addr = ((struct sockaddr_in *)server->ai_addr)->sin_addr.s_addr;
-    
-    freeaddrinfo(server);
-    return addr;
-}
-
 #pragma mark instance stuff
 
 @synthesize user = _user;
@@ -281,8 +241,11 @@ uint32_t resolve_addr(const char *address)
         Messenger_load(messenger, (uint8_t*)[data bytes], [data length]);
         
         for (int i=0; i < messenger->numfriends; ++i) {
-            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[i] Number:i];
-            [_friends addObject:friend];
+            Friend *f = &messenger->friendlist[i];
+            if (f->status > 0) {
+                ToxFriend *friend = [[ToxFriend alloc] initWithFriend:f Number:i];
+                [_friends addObject:friend];
+            }
         }
     }
 }
@@ -331,17 +294,8 @@ uint32_t resolve_addr(const char *address)
     NSData *publicKeyData = [publicKey hexToData];
     //    NSData *publicKeyData = [publicKey createDataWithHexString];
     
-    IP_Port bootstrap_ip_port;
-    bootstrap_ip_port.port = htons(port);
-    int resolved_address = resolve_addr([ip UTF8String]);
-    if (resolved_address != 0) {
-        bootstrap_ip_port.ip.ip4.uint32 = resolved_address;
-    } else {
-        NSLog(@"Failed to resolve IP address");
-        return;
-    }
-    
-    DHT_bootstrap(messenger->dht, bootstrap_ip_port, (uint8_t*)[publicKeyData bytes]);
+    DHT_bootstrap_from_address(messenger->dht, [ip UTF8String], 0,
+                               htons(port), (uint8_t*)[publicKeyData bytes]);
 }
 
 - (void)doTox
@@ -363,13 +317,24 @@ uint32_t resolve_addr(const char *address)
     }
 }
 
+- (void)doToxAsync
+{
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("doToxAsync", 0);
+    
+    dispatch_async(backgroundQueue, ^{
+        [self doTox];
+    });
+}
+
 - (void)start
 {
     [self initTox];
     
     [self load];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(doTox) userInfo:nil repeats:YES];
+    NSLog(@"Personal User ID: %@", self.personalId);
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(doToxAsync) userInfo:nil repeats:YES];
 }
 
 - (ToxFriend *)addFriendWithUserId:(uint8_t *)userId
@@ -409,16 +374,35 @@ uint32_t resolve_addr(const char *address)
             
         default:
             NSLog(@"Friend added as %d.", result);
-            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[result] Number: result];
+            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[result] Number:result];
             [_friends addObject:friend];
             [self save];
             return friend;
     }
 }
 
+- (void)removeFriend:(ToxFriend *)toxFriend
+{
+    int result = m_delfriend(messenger, toxFriend.number);
+    if (result < 0) {
+        NSLog(@"Failed to remove friend %@", toxFriend.name);
+        return;
+    }
+    
+    [_friends removeObject:toxFriend];
+    
+    [self save];
+}
+
 - (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest
 {
     int friendNumber = m_addfriend_norequest(messenger, toxFriendRequest.clientId);
+    
+    if (friendNumber < 0) {
+        NSLog(@"Failed to accept friend request (%@)", toxFriendRequest.message);
+        return;
+    }
+    
     ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[friendNumber] Number:friendNumber];
     [_friends addObject:friend];
     [_friendRequests removeObject:toxFriendRequest];

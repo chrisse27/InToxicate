@@ -44,6 +44,7 @@ FOUNDATION_EXPORT NSString * const ToxMessengerNotificationsFriendActionKey;
 - (void)shutdown;
 
 - (ToxFriend *)addFriendWithUserId:(uint8_t *)userId;
+- (void)removeFriend:(ToxFriend *)toxFriend;
 - (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest;
 - (void)sendMessage:(NSString *) message ToFriend:(ToxFriend *)toxFriend;
 @end

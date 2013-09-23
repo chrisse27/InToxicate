@@ -226,6 +226,11 @@
 				CLASSPREFIX = Tox;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Neuronics;
+				TargetAttributes = {
+					26D899F917B98E8900F5FE36 = {
+						DevelopmentTeam = AQPQPU894K;
+					};
+				};
 			};
 			buildConfigurationList = 26D899F517B98E8900F5FE36 /* Build configuration list for PBXProject "InToxicate" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -375,6 +380,7 @@
 		26D89A2117B98E8900F5FE36 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InToxicate/InToxicate-Prefix.pch";
 				HEADER_SEARCH_PATHS = "../**";
@@ -393,6 +399,7 @@
 		26D89A2217B98E8900F5FE36 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InToxicate/InToxicate-Prefix.pch";
 				HEADER_SEARCH_PATHS = "../**";

@@ -137,6 +137,34 @@
     return cell;
 }
 
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        switch (indexPath.section) {
+            case 0:
+            {
+                break;
+            }
+            case 1:
+            {
+                ToxFriend *friend = [self.messenger.friends objectAtIndex:indexPath.row];
+                [self.messenger removeFriend:friend];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.friendList reloadData];
+                });
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
+ - (void)handleSwipeFromCell:(UIGestureRecognizer*)gestureRecognizer
+{
+    NSLog(@"Swipe");
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForShowFriendRequestSegue:(UIStoryboardSegue *)segue
