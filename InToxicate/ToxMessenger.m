@@ -277,7 +277,7 @@ uint32_t resolve_addr(const char *address)
         Messenger_load(messenger, (uint8_t*)[data bytes], [data length]);
         
         for (int i=0; i < messenger->numfriends; ++i) {
-            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[i]];
+            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[i] Number:i];
             [_friends addObject:friend];
         }
     }
@@ -405,7 +405,7 @@ uint32_t resolve_addr(const char *address)
             
         default:
             NSLog(@"Friend added as %d.", result);
-            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[result]];
+            ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[result] Number: result];
             [_friends addObject:friend];
             [self save];
             return friend;
@@ -415,7 +415,7 @@ uint32_t resolve_addr(const char *address)
 - (void)acceptFriendRequest:(ToxFriendRequest *)toxFriendRequest
 {
     int friendNumber = m_addfriend_norequest(messenger, toxFriendRequest.clientId);
-    ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[friendNumber]];
+    ToxFriend *friend = [[ToxFriend alloc] initWithFriend:&messenger->friendlist[friendNumber] Number:friendNumber];
     [_friends addObject:friend];
     [_friendRequests removeObject:toxFriendRequest];
 
@@ -446,7 +446,8 @@ uint32_t resolve_addr(const char *address)
     NSLog(@"Received message from friend %d: %@", friendNumber, message);
 
     ToxFriend *friend = self.friends[friendNumber];
-    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendRequestNotification
+    [friend.chat addMessage:message From:friend];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ToxHasReceivedFriendMessageNotification
                                                         object:self
                                                       userInfo:@{ToxMessengerNotificationsFriendKey        : friend,
                                                                  ToxMessengerNotificationsFriendMessageKey : message}];

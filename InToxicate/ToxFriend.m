@@ -12,6 +12,7 @@
 
 @synthesize cFriend = _cFriend;
 @synthesize number = _number;
+@synthesize chat = _chat;
 
 - (NSString *) name
 {
@@ -38,11 +39,14 @@
     }
 }
 
-- (id)initWithFriend:(Friend *) cFriend
+- (id)initWithFriend:(Friend *) cFriend Number:(int) number
 {
     self = [super init];
     if (self) {
         _cFriend = cFriend;
+        _number = number;
+        _chat = [[ToxChat alloc] init];
+        [_chat addFriend:self];
     }
     
     return self;

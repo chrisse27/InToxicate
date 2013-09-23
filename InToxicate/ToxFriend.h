@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #import "Messenger.h"
+#import "ToxChat.h"
+
+@class ToxChat;
 
 @interface ToxFriend : NSObject
 @property (nonatomic, readonly) Friend *cFriend;
@@ -16,5 +19,7 @@
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *status;
 
-- (id)initWithFriend:(Friend *) cFriend;
+@property (nonatomic, readonly) ToxChat *chat;
+
+- (id)initWithFriend:(Friend *) cFriend Number:(int) number;
 @end

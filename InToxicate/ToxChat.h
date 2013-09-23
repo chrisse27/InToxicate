@@ -10,7 +10,12 @@
 
 #import "ToxFriend.h"
 
+@class ToxFriend;
+
 @interface ToxChat : NSObject
 @property (strong, nonatomic) NSArray *friends;
 @property (readonly, nonatomic) NSArray *entries;
+
+- (void) addFriend:(ToxFriend *)aFriend;
+- (void) addMessage:(NSString *)message From:(ToxFriend *)aFriend;
 @end

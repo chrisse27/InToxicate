@@ -10,6 +10,7 @@
 
 #import "ToxAppDelegate.h"
 #import "ToxMessenger.h"
+#import "ToxChatEntry.h"
 
 @interface ToxChatViewController ()
 @property (strong, nonatomic) ToxMessenger *messenger;
@@ -33,6 +34,17 @@
         [self deregisterFromNotificationsOfMessenger: _messenger];
         _messenger = messenger;
         [self registerToNotificationsOfMessenger: _messenger];
+    }
+}
+
+- (void)setToxFriend:(ToxFriend *)toxFriend
+{
+    if (toxFriend != _toxFriend) {
+        _toxFriend = toxFriend;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
 }
 
@@ -87,17 +99,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0; //self.messenger.;
+    return self.toxFriend.chat.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"ChatEntries";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
     
-    // Configure the cell...
+    ToxChatEntry *entry = [self.toxFriend.chat.entries objectAtIndex:indexPath.row];
+    cell.textLabel.text = entry.message;
+    cell.detailTextLabel.text = entry.source.name;
     
     return cell;
 }

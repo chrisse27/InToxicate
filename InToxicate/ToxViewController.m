@@ -159,7 +159,10 @@
     } else if ([segue.identifier isEqualToString:@"ShowFriendRequest"]) {
         [self prepareForShowFriendRequestSegue:segue];
     } else if ([segue.identifier isEqualToString:@"ShowFriend"]) {
-        ToxFriend *friend = [self.messenger.friends objectAtIndex:self.friendList.indexPathForSelectedRow.row];
+        UITableViewCell *cell = sender;
+        NSIndexPath *indexPath = [self.friendList indexPathForCell:cell];
+
+        ToxFriend *friend = [self.messenger.friends objectAtIndex:indexPath.row];
         ToxFriendViewController *friendViewController = segue.destinationViewController;
         friendViewController.displayedFriend = friend;
     }

@@ -13,4 +13,6 @@
 @interface ToxChatEntry : NSObject
 @property (readonly, nonatomic) ToxFriend *source;
 @property (readonly, nonatomic) NSString *message;
+
+- (id)initWithSource:(ToxFriend *)source Message:(NSString *)message;
 @end
