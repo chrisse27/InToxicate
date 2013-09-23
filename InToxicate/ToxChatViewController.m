@@ -104,15 +104,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ChatEntries";
+    ToxChatEntry *entry = [self.toxFriend.chat.entries objectAtIndex:indexPath.row];
+    
+    static NSString *CellIdentifier;
+    if ([entry.source isKindOfClass:[ToxUser class]]) {
+        CellIdentifier = @"ChatEntriesUser";
+    } else if ([entry.source isKindOfClass:[ToxFriend class]]) {
+        CellIdentifier = @"ChatEntriesFriend";
+    }
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    ToxChatEntry *entry = [self.toxFriend.chat.entries objectAtIndex:indexPath.row];
-    cell.textLabel.text = entry.message;
-    cell.detailTextLabel.text = entry.source.name;
+    UITextView *messageTextView = (UITextView *)[cell viewWithTag:101];
+    messageTextView.text = entry.message;
+//    cell.detailTextLabel.text = entry.source.name;
     
     return cell;
 }

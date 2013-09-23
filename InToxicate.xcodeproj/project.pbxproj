@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		266E46A517F0548C00E1CBA5 /* ToxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 266E46A417F0548C00E1CBA5 /* ToxUser.m */; };
+		266E46A717F0800600E1CBA5 /* bubbleMine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 266E46A617F0800600E1CBA5 /* bubbleMine@2x.png */; };
+		266E46AB17F0885B00E1CBA5 /* bubbleMine.png in Resources */ = {isa = PBXBuildFile; fileRef = 266E46A817F0885B00E1CBA5 /* bubbleMine.png */; };
+		266E46AC17F0885B00E1CBA5 /* bubbleSomeone.png in Resources */ = {isa = PBXBuildFile; fileRef = 266E46A917F0885B00E1CBA5 /* bubbleSomeone.png */; };
+		266E46AD17F0885B00E1CBA5 /* bubbleSomeone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 266E46AA17F0885B00E1CBA5 /* bubbleSomeone@2x.png */; };
 		26D6BF5E17CF475000BBE0A0 /* ToxUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF5D17CF475000BBE0A0 /* ToxUserProfileViewController.m */; };
 		26D6BF6117CF558500BBE0A0 /* ToxAddNewFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF6017CF558500BBE0A0 /* ToxAddNewFriendViewController.m */; };
 		26D6BF6417CF8F1200BBE0A0 /* ToxChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D6BF6317CF8F1200BBE0A0 /* ToxChatViewController.m */; };
@@ -39,6 +43,10 @@
 		266E46A017F052CD00E1CBA5 /* ToxPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ToxPerson.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		266E46A317F0548C00E1CBA5 /* ToxUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxUser.h; sourceTree = "<group>"; };
 		266E46A417F0548C00E1CBA5 /* ToxUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxUser.m; sourceTree = "<group>"; };
+		266E46A617F0800600E1CBA5 /* bubbleMine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubbleMine@2x.png"; sourceTree = "<group>"; };
+		266E46A817F0885B00E1CBA5 /* bubbleMine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubbleMine.png; sourceTree = "<group>"; };
+		266E46A917F0885B00E1CBA5 /* bubbleSomeone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubbleSomeone.png; sourceTree = "<group>"; };
+		266E46AA17F0885B00E1CBA5 /* bubbleSomeone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubbleSomeone@2x.png"; sourceTree = "<group>"; };
 		26D6BF5C17CF475000BBE0A0 /* ToxUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxUserProfileViewController.h; sourceTree = "<group>"; };
 		26D6BF5D17CF475000BBE0A0 /* ToxUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToxUserProfileViewController.m; sourceTree = "<group>"; };
 		26D6BF5F17CF558500BBE0A0 /* ToxAddNewFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToxAddNewFriendViewController.h; sourceTree = "<group>"; };
@@ -186,6 +194,10 @@
 		26D89A0417B98E8900F5FE36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				266E46A817F0885B00E1CBA5 /* bubbleMine.png */,
+				266E46A917F0885B00E1CBA5 /* bubbleSomeone.png */,
+				266E46AA17F0885B00E1CBA5 /* bubbleSomeone@2x.png */,
+				266E46A617F0800600E1CBA5 /* bubbleMine@2x.png */,
 				26D89A0517B98E8900F5FE36 /* InToxicate-Info.plist */,
 				26D89A0617B98E8900F5FE36 /* InfoPlist.strings */,
 				26D89A0917B98E8900F5FE36 /* main.m */,
@@ -256,9 +268,13 @@
 			files = (
 				26D89A0817B98E8900F5FE36 /* InfoPlist.strings in Resources */,
 				26D89A1017B98E8900F5FE36 /* Default.png in Resources */,
+				266E46A717F0800600E1CBA5 /* bubbleMine@2x.png in Resources */,
+				266E46AC17F0885B00E1CBA5 /* bubbleSomeone.png in Resources */,
 				26D89A1217B98E8900F5FE36 /* Default@2x.png in Resources */,
+				266E46AD17F0885B00E1CBA5 /* bubbleSomeone@2x.png in Resources */,
 				26D89A1417B98E8900F5FE36 /* Default-568h@2x.png in Resources */,
 				26D89A1717B98E8900F5FE36 /* MainStoryboard_iPhone.storyboard in Resources */,
+				266E46AB17F0885B00E1CBA5 /* bubbleMine.png in Resources */,
 				26D89A1A17B98E8900F5FE36 /* MainStoryboard_iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,6 +15,9 @@
 #import "ToxFriendRequestViewController.h"
 #import "ToxUserProfileViewController.h"
 
+NSString * const ToxFriendRequestsCellIdentifier = @"ToxFriendRequests";
+NSString * const ToxFriendsCellIdentifier = @"ToxFriends";
+
 @interface ToxViewController ()
 @property ToxMessenger *messenger;
 
@@ -110,10 +113,9 @@
     switch (indexPath.section) {
         case 0:
         {
-            static NSString *CellIdentifier = @"ToxFriendRequests";
-            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell = [tableView dequeueReusableCellWithIdentifier:ToxFriendRequestsCellIdentifier forIndexPath:indexPath];
             if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ToxFriendRequestsCellIdentifier];
             }
             ToxFriendRequest *friendRequest = [self.messenger.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.message;
@@ -121,10 +123,9 @@
         }
         case 1:
         {
-            static NSString *CellIdentifier = @"ToxFriends";
-            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell = [tableView dequeueReusableCellWithIdentifier:ToxFriendsCellIdentifier forIndexPath:indexPath];
             if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ToxFriendsCellIdentifier];
             }
             ToxFriend *friend = [self.messenger.friends objectAtIndex:indexPath.row];
             cell.textLabel.text = friend.name;

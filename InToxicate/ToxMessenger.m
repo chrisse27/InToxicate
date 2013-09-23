@@ -334,7 +334,7 @@ void onFriendConnectionStatusChange(Messenger *m, int friendNumber, uint8_t stat
     
     NSLog(@"Personal User ID: %@", self.personalId);
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(doToxAsync) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(doToxAsync) userInfo:nil repeats:YES];
 }
 
 - (ToxFriend *)addFriendWithUserId:(uint8_t *)userId
